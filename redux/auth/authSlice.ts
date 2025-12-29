@@ -7,33 +7,24 @@ export interface AuthState {
   user:IRegisterForm | null
 }
 
-const getUser = () => {
-  if (typeof window === 'undefined')
-      return null;
-  const user = Cookies.get("user")
-  if(user)
-    return JSON.parse(user);
-}
 const initialState: AuthState = {
-  token: Cookies.get("token"),
-  user: getUser()
+  token: undefined,
+  user: null
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setToken: (state,action:PayloadAction<string>) => {
+    login: (state,action:PayloadAction<AuthState>) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.token =action.payload;
-      Cookies.set("token",action.payload);
-    },
-    setUser: (state,action:PayloadAction<IRegisterForm>) => {
-        state.user = state.user;
-        Cookies.set("user",JSON.stringify(action.payload));
+      state.token =action.payload.token;
+      state.user = action.payload.user;
+      Cookies.set("token",action.payload.token!);
+      Cookies.set("user",JSON.stringify(action.payload.user));
     },
     logout:(state) => {
         state.token = undefined;
@@ -45,6 +36,6 @@ export const authSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setToken, setUser, logout } = authSlice.actions
+export const { login, logout } = authSlice.actions
 
 export default authSlice.reducer

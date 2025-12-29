@@ -8,9 +8,9 @@ import { useLogin } from "@/utils/apis/authApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setToken, setUser } from "@/redux/auth/authSlice";
 import { IoMdMail } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
+import { login } from "@/redux/auth/authSlice";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -21,9 +21,11 @@ const LoginForm = () => {
     mutate(data,{
         onSuccess: (response) => {
             toast.success(response.message);
+            dispatch(login({
+              token:response.token,
+              user:response.data
+            }));
             router.push("/");
-            dispatch(setToken(response.accessToken));
-            dispatch(setUser(response.data));
         }
     });
   } 

@@ -55,16 +55,16 @@ const Home = () => {
           {testimonials.map((t) => (
             <Card
               key={t.name}
-              className="w-full max-w-md flex flex-col items-center justify-evenly  shadow-md border-t-4 border-t-cyan-500"
+              className="w-full max-w-md h-80 flex flex-col items-center justify-evenly  shadow-md border-t-4 border-t-cyan-500"
             >
               <CardHeader className="w-full">
                 <CardTitle>{t.name}</CardTitle>
                 <CardDescription>{`" ${t.description} "`}</CardDescription>
-                <CardAction>
+                {/* <CardAction>
                   <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
                     Rate
                   </Button>
-                </CardAction>
+                </CardAction> */}
               </CardHeader>
               <CardContent>
                 <Image

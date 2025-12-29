@@ -17,7 +17,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { logout } from "@/redux/auth/authSlice";
-import { useEffect, useState } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import {
   AlertDialog,
@@ -33,7 +32,6 @@ import {
 import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const path = usePathname();
   const token = useSelector((state: RootState) => state.authReducer.token);
   const user = useSelector((state: RootState) => state.authReducer.user);
@@ -42,10 +40,6 @@ const Navbar = () => {
     dispatch(logout());
     toast.success("User logged out successfully");
   }
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  if (!isMounted) return null;
   return (
     <header>
       <div className="flex  justify-center  lg:justify-between items-center bg-cyan-600 h-14 px-20 text-white ">
@@ -82,8 +76,7 @@ const Navbar = () => {
         </ul>
         {token ? (
           <AlertDialog>
-            <AlertDialogTrigger>
-              {" "}
+            <AlertDialogTrigger asChild>
               <Button
                 className="bg-red-500 hover:bg-red-600 cursor-pointer"
               >
