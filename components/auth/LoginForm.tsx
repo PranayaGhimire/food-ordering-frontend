@@ -7,9 +7,10 @@ import { ILoginForm } from "@/utils/interfaces/LoginForm";
 import { useLogin } from "@/utils/apis/authApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "@/redux/auth/authSlice";
+import { IoMdMail } from "react-icons/io";
+import { FaLock } from "react-icons/fa";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -28,13 +29,15 @@ const LoginForm = () => {
   } 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
-      <div className="grid gap-3">
+      <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
-        <Input {...register('email')} type="email"  />
+        <Input {...register('email')} type="email" placeholder="Enter email" className="pl-8"  />
+        <IoMdMail className="absolute top-9 left-2" />
       </div>
-      <div className="grid gap-3">
+      <div className="relative grid gap-3">
         <Label htmlFor="password">password</Label>
-        <Input {...register('password')} type="password" />
+        <Input {...register('password')} type="password" placeholder="Enter password" className="pl-8" />
+        <FaLock className="absolute top-9 left-2" />
       </div>
       <Button disabled={isPending} className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
         Submit
