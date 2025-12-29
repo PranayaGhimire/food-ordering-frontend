@@ -19,6 +19,18 @@ import { RootState } from "@/redux/store";
 import { logout } from "@/redux/auth/authSlice";
 import { useEffect, useState } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -26,6 +38,10 @@ const Navbar = () => {
   const token = useSelector((state: RootState) => state.authReducer.token);
   const user = useSelector((state: RootState) => state.authReducer.user);
   const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("User logged out successfully");
+  }
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -65,12 +81,29 @@ const Navbar = () => {
           ))}
         </ul>
         {token ? (
-          <Button
-            className="bg-red-500 hover:bg-red-600 cursor-pointer"
-            onClick={() => dispatch(logout())}
-          >
-            Log Out
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger>
+              {" "}
+              <Button
+                className="bg-red-500 hover:bg-red-600 cursor-pointer"
+              >
+                Log Out
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. You will be logged out from
+                  your account and have to login again.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleLogout} className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer">Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         ) : (
           <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
             <Link href={`/auth`}>Log In</Link>

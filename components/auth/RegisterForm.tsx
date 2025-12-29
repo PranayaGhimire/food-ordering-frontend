@@ -36,7 +36,7 @@ const RegisterForm = () => {
           {...register("name")}
           defaultValue="Pedro Duarte"
         />
-        <FaUserCircle className="absolute top-9 left-2" />
+        <FaUserCircle className="absolute top-9 left-2 text-gray-600" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="username">Username</Label>
@@ -45,7 +45,7 @@ const RegisterForm = () => {
           {...register("username")}
           defaultValue="@peduarte"
         />
-        <FaUserAlt className="absolute top-9 left-2" />
+        <FaUserAlt className="absolute top-9 left-2 text-gray-600" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
@@ -55,7 +55,7 @@ const RegisterForm = () => {
           defaultValue="peduarte@email"
           type="email"
         />
-        <MdEmail className="absolute top-9.5 left-2" />
+        <MdEmail className="absolute top-9.5 left-2 text-gray-600" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="password">Password</Label>
@@ -65,7 +65,7 @@ const RegisterForm = () => {
           defaultValue="peduarte123"
           type="password"
         />
-        <FaLock className="absolute top-9 left-2" />
+        <FaLock className="absolute top-9 left-2 text-gray-600" />
       </div>
       <div className="w-full max-w-md relative grid gap-3">
         <Label htmlFor="role">Role</Label>
@@ -74,7 +74,7 @@ const RegisterForm = () => {
           <NativeSelectOption value="USER">User</NativeSelectOption>
           <NativeSelectOption value="ADMIN">Admin</NativeSelectOption>
         </NativeSelect>
-        <FaUserCheck className="absolute top-9.5 left-2" />
+        <FaUserCheck className="absolute top-9.5 left-2 text-gray-600" />
       </div>
       <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer" disabled={isPending}>
         Submit
