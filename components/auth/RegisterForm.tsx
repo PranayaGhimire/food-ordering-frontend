@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaLock, FaUserAlt, FaUserCheck, FaUserCircle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { RotateLoader } from "react-spinners";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -30,13 +31,13 @@ const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
       <div className="relative grid gap-3">
-        <Label htmlFor="name">Name</Label>
+        <Label htmlFor="fullname">Full Name</Label>
         <Input
           className="pl-8"
           {...register("name")}
           defaultValue="Pedro Duarte"
         />
-        <FaUserCircle className="absolute top-9 left-2 text-gray-600" />
+        <FaUserCircle className="text-xl absolute top-8.5 left-2 text-gray-600" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="username">Username</Label>
@@ -45,7 +46,7 @@ const RegisterForm = () => {
           {...register("username")}
           defaultValue="@peduarte"
         />
-        <FaUserAlt className="absolute top-9 left-2 text-gray-600" />
+        <FaUserAlt className=" absolute top-9 left-2 text-gray-600" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
@@ -55,7 +56,7 @@ const RegisterForm = () => {
           defaultValue="peduarte@email"
           type="email"
         />
-        <MdEmail className="absolute top-9.5 left-2 text-gray-600" />
+        <MdEmail className="text-xl absolute top-9 left-2 text-gray-600" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="password">Password</Label>
@@ -67,17 +68,17 @@ const RegisterForm = () => {
         />
         <FaLock className="absolute top-9 left-2 text-gray-600" />
       </div>
-      <div className="w-full max-w-md relative grid gap-3">
+      <div className=" relative grid gap-3">
         <Label htmlFor="role">Role</Label>
-        <NativeSelect {...register("role")} className="w-full max-w-md pl-8">
+        <NativeSelect {...register("role")} className=" pl-8.5">
           <NativeSelectOption value="">Select Role</NativeSelectOption>
           <NativeSelectOption value="USER">User</NativeSelectOption>
           <NativeSelectOption value="ADMIN">Admin</NativeSelectOption>
         </NativeSelect>
-        <FaUserCheck className="absolute top-9.5 left-2 text-gray-600" />
+        <FaUserCheck className="text-xl absolute top-8.5 left-2 text-gray-600" />
       </div>
       <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer" disabled={isPending}>
-        Submit
+        {isPending ? <RotateLoader  size={8} color="white" /> : 'Submit'}
       </Button>
     </form>
   );

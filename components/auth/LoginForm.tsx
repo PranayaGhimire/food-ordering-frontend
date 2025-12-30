@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { IoMdMail } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
 import { login } from "@/redux/auth/authSlice";
+import { RotateLoader } from "react-spinners";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const LoginForm = () => {
         onSuccess: (response) => {
             toast.success(response.message);
             dispatch(login({
-              token:response.token,
+              token:response.accessToken,
               user:response.data
             }));
             router.push("/");
@@ -33,8 +34,8 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
       <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
-        <Input {...register('email')} type="email" placeholder="Enter email" className="pl-8"  />
-        <IoMdMail className="absolute top-9 left-2 text-gray-600" />
+        <Input {...register('email')} type="email" placeholder="Enter email" className="pl-8.5"  />
+        <IoMdMail className="text-xl absolute top-8.5 left-2 text-gray-600" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="password">Password</Label>
@@ -42,7 +43,7 @@ const LoginForm = () => {
         <FaLock className="absolute top-9 left-2 text-gray-600" />
       </div>
       <Button disabled={isPending} className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
-        Submit
+        {isPending ? <RotateLoader  size={8} color="white" /> : 'Submit'}
       </Button>
     </form>
   );

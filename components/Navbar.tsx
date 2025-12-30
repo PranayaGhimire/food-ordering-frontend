@@ -4,7 +4,7 @@ import { navLinks } from "@/constants/navLinks";
 import Link from "next/link";
 import Image from "next/image";
 import momoHouse from "@/assets/MomoHouse.png";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
   Sheet,
@@ -30,16 +30,23 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import toast from "react-hot-toast";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { MdAccountCircle } from "react-icons/md";
 
 const Navbar = () => {
+  const router = useRouter();
   const path = usePathname();
   const token = useSelector((state: RootState) => state.authReducer.token);
   const user = useSelector((state: RootState) => state.authReducer.user);
+  const first = user?.name.split(" ")[0];
+  const shortFirst = user?.name.slice(0, 1).toUpperCase();
+  const shortLast = user?.name.split(" ")[1]?.slice(0, 1).toUpperCase();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
     toast.success("User logged out successfully");
-  }
+    router.push("/auth");
+  };
   return (
     <header>
       <div className="flex  justify-center  lg:justify-between items-center bg-cyan-600 h-14 px-20 text-white ">
@@ -58,45 +65,67 @@ const Navbar = () => {
           alt="Momo House Logo"
           className="rounded-full w-20 h-20"
         />
-        {user && <p>Hello, {user?.username}</p>}
+        {user && <p className="font-medium">Welcome, {first}</p>}
         <ul className="md:flex gap-8 hidden">
           {navLinks.map((navLink) => (
             <li
               key={navLink.name}
-              className={`${
-                path === navLink.route && "text-orange-500"
+              className={` hover:text-cyan-600 ${
+                path === navLink.route && "text-cyan-500"
               } font-medium`}
             >
               <Link href={navLink.route}>{navLink.name}</Link>
               {path === navLink.route && (
-                <hr className="mt-1 w-8 border-2 border-orange-500" />
+                <hr className="mt-1 w-8 border-2 border-cyan-500" />
               )}
             </li>
           ))}
         </ul>
+
         {token ? (
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button
-                className="bg-red-500 hover:bg-red-600 cursor-pointer"
-              >
-                Log Out
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. You will be logged out from
-                  your account and have to login again.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleLogout} className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer">Continue</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="primary">{`${shortFirst}${shortLast}`}</Button>
+            </PopoverTrigger>
+            <PopoverContent className="space-y-2">
+              <p className="flex items-center gap-2 border-b-2 pb-2 font-medium">
+                <MdAccountCircle className="text-cyan-500 text-2xl" />{" "}
+                {`My Account`}
+              </p>
+              <p className="capitalize">{user?.role.toLowerCase()}</p>
+              <p>{user?.name}</p>
+              <p className="text-gray-600">{user?.email}</p>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
+                    Log Out
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. You will be logged out from
+                      your account and have to login again.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="cursor-pointer">
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={handleLogout}
+                      className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
+                    >
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </PopoverContent>
+          </Popover>
         ) : (
           <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
             <Link href={`/auth`}>Log In</Link>
@@ -120,12 +149,12 @@ const Navbar = () => {
                 <li
                   key={navLink.name}
                   className={`${
-                    path === navLink.route && "text-orange-500"
+                    path === navLink.route && "text-cyan-500"
                   } font-medium`}
                 >
                   <Link href={navLink.route}>{navLink.name}</Link>
                   {path === navLink.route && (
-                    <hr className="mt-1 w-8 border-2 border-orange-500" />
+                    <hr className="mt-1 w-8 border-2 border-cyan-500" />
                   )}
                 </li>
               ))}
