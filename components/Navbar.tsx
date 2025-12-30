@@ -92,9 +92,10 @@ const Navbar = () => {
                 <MdAccountCircle className="text-cyan-500 text-2xl" />{" "}
                 {`My Account`}
               </p>
-              <p className="capitalize">{user?.role.toLowerCase()}</p>
-              <p>{user?.name}</p>
+              <p className="text-gray-600">{user?.name}</p>
+              {/* <p className="text-gray-600">{user?.username}</p> */}
               <p className="text-gray-600">{user?.email}</p>
+              {/* <p className="capitalize text-gray-600">{user?.role.toLowerCase()}</p> */}
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
