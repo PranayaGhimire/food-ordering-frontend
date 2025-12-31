@@ -27,7 +27,10 @@ const LoginForm = () => {
               user:response.data
             }));
             router.push("/");
-        }
+        },
+        onError() {
+          toast.error("Oops! Something Went Wrong");
+        },
     });
   } 
   return (
