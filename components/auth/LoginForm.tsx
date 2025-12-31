@@ -35,12 +35,12 @@ const LoginForm = () => {
       <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
         <Input {...register('email')} type="email" placeholder="Enter email" className="pl-8.5"  />
-        <IoMdMail className="text-xl absolute top-8.5 left-2 text-gray-600" />
+        <IoMdMail className="text-xl absolute top-8.5 left-2 text-cyan-500" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="password">Password</Label>
         <Input {...register('password')} type="password" placeholder="Enter password" className="pl-8" />
-        <FaLock className="absolute top-9 left-2 text-gray-600" />
+        <FaLock className="absolute top-9 left-2 text-cyan-500" />
       </div>
       <Button disabled={isPending} className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
         {isPending ? <RotateLoader  size={8} color="white" /> : 'Submit'}

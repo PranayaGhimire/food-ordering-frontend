@@ -37,7 +37,7 @@ const RegisterForm = () => {
           {...register("name")}
           defaultValue="Pedro Duarte"
         />
-        <FaUserCircle className="text-xl absolute top-8.5 left-2 text-gray-600" />
+        <FaUserCircle className="text-xl absolute top-8.5 left-2 text-cyan-500" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="username">Username</Label>
@@ -46,7 +46,7 @@ const RegisterForm = () => {
           {...register("username")}
           defaultValue="@peduarte"
         />
-        <FaUserAlt className=" absolute top-9 left-2 text-gray-600" />
+        <FaUserAlt className=" absolute top-9 left-2 text-cyan-500" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
@@ -56,7 +56,7 @@ const RegisterForm = () => {
           defaultValue="peduarte@email"
           type="email"
         />
-        <MdEmail className="text-xl absolute top-9 left-2 text-gray-600" />
+        <MdEmail className="text-xl absolute top-9 left-2 text-cyan-500" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="password">Password</Label>
@@ -66,7 +66,7 @@ const RegisterForm = () => {
           defaultValue="peduarte123"
           type="password"
         />
-        <FaLock className="absolute top-9 left-2 text-gray-600" />
+        <FaLock className="absolute top-9 left-2 text-cyan-500" />
       </div>
       <div className=" relative grid gap-3">
         <Label htmlFor="role">Role</Label>
@@ -75,7 +75,7 @@ const RegisterForm = () => {
           <NativeSelectOption value="USER">User</NativeSelectOption>
           <NativeSelectOption value="ADMIN">Admin</NativeSelectOption>
         </NativeSelect>
-        <FaUserCheck className="text-xl absolute top-8.5 left-2 text-gray-600" />
+        <FaUserCheck className="text-xl absolute top-8.5 left-2 text-cyan-500" />
       </div>
       <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer" disabled={isPending}>
         {isPending ? <RotateLoader  size={8} color="white" /> : 'Submit'}
