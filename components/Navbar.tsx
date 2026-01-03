@@ -87,15 +87,12 @@ const Navbar = () => {
             <PopoverTrigger asChild>
               <Button variant="primary">{`${shortFirst}${shortLast}`}</Button>
             </PopoverTrigger>
-            <PopoverContent className="space-y-2">
+            <PopoverContent className="flex flex-col space-y-2">
               <p className="flex items-center gap-2 border-b-2 pb-2 font-medium">
                 <MdAccountCircle className="text-cyan-500 text-2xl" />{" "}
                 {`My Account`}
               </p>
-              <p className="text-gray-600">{user?.name}</p>
-              {/* <p className="text-gray-600">{user?.username}</p> */}
-              <p className="text-gray-600">{user?.email}</p>
-              {/* <p className="capitalize text-gray-600">{user?.role.toLowerCase()}</p> */}
+              <Link href={`/profile/${user?.name.replace(" ","_")}`}>Profile</Link>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">

@@ -7,5 +7,6 @@ export interface IRegisterForm {
     username:string;
     email:string;
     password:string;
-    role:UserRole
+    role:UserRole,
+    profileImageUrl?:string;
 }

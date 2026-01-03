@@ -33,11 +33,11 @@ const RegisterForm = () => {
       <div className="relative grid gap-3">
         <Label htmlFor="fullname">Full Name</Label>
         <Input
-          className="pl-8"
+          className="pl-8.5"
           {...register("name")}
           defaultValue="Pedro Duarte"
         />
-        <FaUserCircle className="text-xl absolute top-8.5 left-2 text-cyan-500" />
+        <FaUserCircle className="text-xl absolute top-9.5 left-2 text-cyan-500" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="username">Username</Label>
@@ -46,7 +46,7 @@ const RegisterForm = () => {
           {...register("username")}
           defaultValue="@peduarte"
         />
-        <FaUserAlt className=" absolute top-9 left-2 text-cyan-500" />
+        <FaUserAlt className=" absolute top-10 left-2 text-cyan-500" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
@@ -56,7 +56,7 @@ const RegisterForm = () => {
           defaultValue="peduarte@email"
           type="email"
         />
-        <MdEmail className="text-xl absolute top-9 left-2 text-cyan-500" />
+        <MdEmail className="text-xl absolute top-10 left-2 text-cyan-500" />
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="password">Password</Label>
@@ -66,7 +66,7 @@ const RegisterForm = () => {
           defaultValue="peduarte123"
           type="password"
         />
-        <FaLock className="absolute top-9 left-2 text-cyan-500" />
+        <FaLock className="absolute top-10 left-2 text-cyan-500" />
       </div>
       <div className=" relative grid gap-3">
         <Label htmlFor="role">Role</Label>
