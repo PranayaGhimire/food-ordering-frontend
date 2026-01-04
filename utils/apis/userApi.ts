@@ -1,18 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import Cookies from "js-cookie";
+import { axiosInstance } from "../interceptors/axiosInterceptor";
+import { IRegisterForm } from "../interfaces/RegisterForm";
 
-const baseUrl = process.env.NEXT_PUBLIC_URL;
-const token = Cookies.get("token");
 export const useUploadProfile = () => 
     useMutation({
         mutationFn: async (data:FormData) => {
-            const response = await axios.patch(`${baseUrl}/users/me`,data,{
-                headers:{
-                    Authorization:`Bearer ${token}`,
-                    "Content-Type":"multipart/form-data"
-                }
-            });
+            const response = await axiosInstance.patch(`/users/me`,data);
             return response.data;
         }
     })
@@ -20,11 +13,15 @@ export const useGetProfile = () =>
     useQuery({
         queryKey:['user'],
         queryFn: async () => {
-            const response = await axios.get(`${baseUrl}/users/me`,{
-                headers:{
-                    Authorization:`Bearer ${token}`
-                }
-            });
+            const response = await axiosInstance.get(`/users/me`);
+            return response.data;
+        }
+    });
+
+export const useUpdateProfile = () =>
+    useMutation({
+        mutationFn: async (data:IRegisterForm) => {
+            const response = await axiosInstance.put(`/users/me`,data);
             return response.data;
         }
     })

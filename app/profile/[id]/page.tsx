@@ -2,16 +2,28 @@
 import Image from "next/image";
 import profileImage from "@/assets/profile.avif";
 import { Input } from "@/components/ui/input";
-import { useGetProfile, useUploadProfile } from "@/utils/apis/userApi";
+import { useGetProfile, useUpdateProfile, useUploadProfile } from "@/utils/apis/userApi";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { ClipLoader } from "react-spinners";
 import { useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { IRegisterForm } from "@/utils/interfaces/RegisterForm";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Profile = () => {
+  const {mutate:updateProfile,isPending:isUpdateProfilePending} = useUpdateProfile();
+  const { register, handleSubmit } = useForm<IRegisterForm>();
+  const onSubmit = (data:IRegisterForm) => {
+     updateProfile(data,{
+      onSuccess: (response) => {
+          toast.success(response.message);
+      },
+      onError: () => toast.error("Oops! Something Went Wrong")
+     });
+  }
   const { data: profile, isLoading } = useGetProfile();
   console.log(profile);
   const queryClient = useQueryClient();
@@ -33,7 +45,7 @@ const Profile = () => {
   return (
     <div className="px-5 md:px-20 py-10 space-y-5">
       <h1 className="text-[18px] font-semibold">My Profile</h1>
-      <Card>
+      <Card className="border-t-4 border-t-cyan-500 shadow-md">
         <CardContent className="space-y-5">
           <div className="flex flex-col items-center gap-3">
             <div
@@ -41,9 +53,7 @@ const Profile = () => {
               className="w-40 h-40 rounded-full relative overflow-hidden cursor-pointer"
             >
               {isLoading || isPending ? (
-                <div className="w-full h-full flex justify-center items-center">
-                  <ClipLoader />
-                </div>
+                  <Skeleton className="w-full h-full rounded-full bg-gray-400" />
               ) : (
                 <Image
                   src={profile?.data?.profileImageUrl || profileImage}
@@ -66,29 +76,55 @@ const Profile = () => {
             hidden
             onChange={onFileSelect}
           />
-          {/* Full Name & Username */}
-          <div className="flex flex-col md:flex-row gap-5">
-            <div className="md:w-1/2 space-y-2">
-              <Label>Full Name</Label>
-              <Input defaultValue={profile?.data?.name} />
+          {isLoading ? <div className="space-y-6">
+              <div className="flex flex-col md:flex-row gap-5">
+                <Skeleton className="md:w-1/2 h-10 bg-gray-400"/>
+                <Skeleton className="md:w-1/2 h-10 bg-gray-400"/>
+              </div>
+             <div className="flex flex-col md:flex-row gap-5">
+                <Skeleton className="md:w-1/2 h-10 bg-gray-400"/>
+                <Skeleton className="md:w-1/2 h-10 bg-gray-400"/>
+              </div>
+          </div> :
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Full Name & Username */}
+            <div className="flex flex-col md:flex-row gap-5">
+              <div className="md:w-1/2 space-y-2">
+                <Label>Full Name</Label>
+                <Input {...register("name")} defaultValue={profile?.data?.name} />
+              </div>
+              <div className="md:w-1/2 space-y-2">
+                <Label>Username</Label>
+                <Input {...register("username")} defaultValue={profile?.data?.username} />
+              </div>
             </div>
-            <div className="md:w-1/2 space-y-2">
-              <Label>Username</Label>
-              <Input defaultValue={profile?.data?.username} />
+            {/* Email & Role */}
+            <div className="flex flex-col md:flex-row gap-5">
+              <div className="md:w-1/2 space-y-2">
+                <Label>Email</Label>
+                <Input {...register("email")} type="email" defaultValue={profile?.data?.email} />
+              </div>
+              <div className="md:w-1/2 space-y-2">
+                <Label>Role</Label>
+                <Input  defaultValue={profile?.data?.role} />
+              </div>
             </div>
-          </div>
-          {/* Email & Password */}
-          <div className="flex flex-col md:flex-row gap-5">
-            <div className="md:w-1/2 space-y-2">
-              <Label>Email</Label>
-              <Input type="email" defaultValue={profile?.data?.email} />
-            </div>
-            <div className="md:w-1/2 space-y-2">
-              <Label>Role</Label>
-              <Input value={profile?.data?.role} />
-            </div>
-          </div>
-          <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">Update Profile</Button>
+            {/* Password */}
+            {/* <div className="flex flex-col md:flex-row gap-5">
+              <div className="md:w-1/2 space-y-2">
+                <Label>Old Password</Label>
+                <Input  type="password" placeholder="Enter Old Password" />
+              </div>
+              <div className="md:w-1/2 space-y-2">
+                <Label>New Password</Label>
+                <Input type="password" {...register("password")} placeholder="Enter New Password" />
+              </div>
+            </div> */}
+            {/*  */}
+            <Button disabled={isUpdateProfilePending} className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
+              Update Profile
+            </Button>
+          </form>}
         </CardContent>
       </Card>
     </div>
