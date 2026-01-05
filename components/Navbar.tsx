@@ -55,7 +55,7 @@ const Navbar = () => {
           <p>PHONE: 9840505684; Pranaya Ghimire, Manager</p>
         </div>
         <Button className="w-28 h-full rounded-none bg-stone-800 hover:bg-stone-900 cursor-pointer">
-          <Link href={`/auth`}>Order Now</Link> <FaLongArrowAltRight />
+          <Link href={`/foods`}>Order Now</Link> <FaLongArrowAltRight />
         </Button>
       </div>
       <div className="flex justify-between items-center h-28 px-5 md:px-20 bg-white">
@@ -92,7 +92,7 @@ const Navbar = () => {
                 <MdAccountCircle className="text-cyan-500 text-2xl" />{" "}
                 {`My Account`}
               </p>
-              <Link href={`/profile/${user?.name.replace(" ","_")}`}>Profile</Link>
+              <Link href={`/profile/${user?.name.replace(" ","_").replace(" ","_")}`}>Profile</Link>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
