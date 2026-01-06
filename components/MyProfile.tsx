@@ -9,7 +9,7 @@ import {
 } from "@/utils/apis/userApi";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const MyProfile = () => {
   const { mutate: updateProfile, isPending: isUpdateProfilePending } =
     useUpdateProfile();
-  const { register, handleSubmit } = useForm<IRegisterForm>();
+  const { register, handleSubmit, reset } = useForm<IRegisterForm>();
   const onSubmit = (data: IRegisterForm) => {
     updateProfile(data, {
       onSuccess: (response) => {
@@ -46,6 +46,16 @@ const MyProfile = () => {
       onError: () => toast.error("Oops! something went wrong"),
     });
   };
+  useEffect(() => {
+    if(profile?.data) {
+      reset({
+        name:profile.data.name,
+        username:profile.data.username,
+        email:profile.data.email,
+        role:profile.data.role
+      })
+    }
+  },[profile,reset])
   return (
     <Card className="border-t-4 border-t-cyan-500 shadow-md">
       <CardContent className="space-y-5">

@@ -3,12 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Cookies from 'js-cookie'
 
 export interface AuthState {
-  token: string | undefined,
+  // token: string | undefined,
   user:IRegisterForm | null
 }
 
 const initialState: AuthState = {
-  token: undefined,
+  // token: undefined,
   user: null
 }
 
@@ -21,15 +21,15 @@ export const authSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.token =action.payload.token;
+      // state.token =action.payload.token;
       state.user = action.payload.user;
-      Cookies.set("token",action.payload.token!);
+      // Cookies.set("token",action.payload.token!);
       Cookies.set("user",JSON.stringify(action.payload.user));
     },
     logout:(state) => {
-        state.token = undefined;
+        // state.token = undefined;
         state.user = null;
-        Cookies.remove("token");
+        // Cookies.remove("token");
         Cookies.remove("user");
     }
   },

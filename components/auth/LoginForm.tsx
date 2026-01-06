@@ -12,8 +12,10 @@ import { IoMdMail } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
 import { login } from "@/redux/auth/authSlice";
 import { RotateLoader } from "react-spinners";
+import { useQueryClient } from "@tanstack/react-query";
 
 const LoginForm = () => {
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const router = useRouter();
   const {mutate,isPending} = useLogin();
@@ -23,10 +25,11 @@ const LoginForm = () => {
         onSuccess: (response) => {
             toast.success(response.message);
             dispatch(login({
-              token:response.accessToken,
-              user:response.data
+              // token:response.accessToken,
+              user:response.user
             }));
             router.push("/");
+            queryClient.invalidateQueries({queryKey:['user']})
         },
         onError() {
           toast.error("Oops! Something Went Wrong");

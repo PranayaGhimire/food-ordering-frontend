@@ -15,7 +15,8 @@ export const useGetProfile = () =>
         queryFn: async () => {
             const response = await axiosInstance.get(`/users/me`);
             return response.data;
-        }
+        },
+        retry:false
     });
 
 export const useUpdateProfile = () =>

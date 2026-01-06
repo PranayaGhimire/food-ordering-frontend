@@ -4,7 +4,7 @@ import { navLinks } from "@/constants/navLinks";
 import Link from "next/link";
 import Image from "next/image";
 import momoHouse from "@/assets/MomoHouse.png";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
   Sheet,
@@ -14,9 +14,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { logout } from "@/redux/auth/authSlice";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import {
   AlertDialog,
@@ -29,24 +28,18 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import toast from "react-hot-toast";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { MdAccountCircle } from "react-icons/md";
+import { useLogout } from "@/utils/apis/authApi";
 
 const Navbar = () => {
-  const router = useRouter();
   const path = usePathname();
-  const token = useSelector((state: RootState) => state.authReducer.token);
+  // const token = useSelector((state: RootState) => state.authReducer.token);
   const user = useSelector((state: RootState) => state.authReducer.user);
   const first = user?.name.split(" ")[0];
   const shortFirst = user?.name.slice(0, 1).toUpperCase();
   const shortLast = user?.name.split(" ")[1]?.slice(0, 1).toUpperCase();
-  const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(logout());
-    toast.success("User logged out successfully");
-    router.push("/auth");
-  };
+  const {mutate} = useLogout();
   return (
     <header>
       <div className="flex  justify-center  lg:justify-between items-center bg-cyan-600 h-14 px-20 text-white ">
@@ -82,7 +75,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {token ? (
+        {user ? (
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="primary">{`${shortFirst}${shortLast}`}</Button>
@@ -114,7 +107,7 @@ const Navbar = () => {
                       Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction
-                      onClick={handleLogout}
+                      onClick={() => mutate()}
                       className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
                     >
                       Continue
