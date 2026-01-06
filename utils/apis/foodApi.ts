@@ -32,7 +32,7 @@ export const useGetFood = (id:string) =>
 
 export const useUpdateFood = () =>
     useMutation({
-        mutationFn: async ({id,data}:{id:string,data:IFoodForm}) => {
+        mutationFn: async ({id,data}:{id:string,data:FormData}) => {
             const response =await axiosInstance.put(`/foods/${id}`,data);
             return response.data;
         }
