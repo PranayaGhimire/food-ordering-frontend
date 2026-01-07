@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useDeleteFood, useGetFoods } from "@/utils/apis/foodApi";
 import { useQueryClient } from "@tanstack/react-query";
-import { Edit, Eye, Trash } from "lucide-react";
+import { CirclePlus, Edit, Eye, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -72,7 +72,7 @@ const AllFoods = () => {
   return (
     <div className="space-y-4">
       <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
-        <Link href={`/foods/add`}>Add Food</Link>
+        <Link href={`/foods/add`} className="flex gap-2 items-center"><CirclePlus/>Add Food</Link>
       </Button>
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />

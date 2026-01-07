@@ -30,6 +30,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { MdAccountCircle } from "react-icons/md";
 import { useLogout } from "@/utils/apis/authApi";
 import { useGetProfile } from "@/utils/apis/userApi";
+import { LogIn, LogOut } from "lucide-react";
 
 const Navbar = () => {
   const path = usePathname();
@@ -61,13 +62,15 @@ const Navbar = () => {
           {navLinks.map((navLink) => (
             <li
               key={navLink.name}
-              className={` hover:text-cyan-600 ${
+              className={` hover:bg-cyan-500 hover:border-white  hover:text-white hover:p-2 hover:rounded-md transition-all duration-600 ${
                 path === navLink.route && "text-cyan-500"
               } font-medium`}
             >
-              <Link href={navLink.route}>{navLink.name}</Link>
+              <div className="flex gap-2 items-center">
+                <navLink.icon size={20}/> <Link href={navLink.route}>{navLink.name}</Link>
+              </div>
               {path === navLink.route && (
-                <hr className="mt-1 w-8 border-2 border-cyan-500" />
+                <hr className="mt-1 w-12 border-2 border-cyan-500" />
               )}
             </li>
           ))}
@@ -87,7 +90,7 @@ const Navbar = () => {
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
-                    Log Out
+                    Log Out<LogOut/>
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
@@ -117,7 +120,7 @@ const Navbar = () => {
           </Popover>
         ) : (
           <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
-            <Link href={`/auth`}>Log In</Link>
+            <Link href={`/auth`} className="flex gap-2 items-center">Log In<LogIn/></Link>
           </Button>
         )}
         <Sheet>
@@ -130,7 +133,7 @@ const Navbar = () => {
             <SheetHeader>
               <SheetTitle>The Momo House</SheetTitle>
               <SheetDescription>
-                We Provide online delivery of momos and other food items
+                We Provide online delivery of foods and our special here is momos and its types.
               </SheetDescription>
             </SheetHeader>
             <ul className="md:hidden flex flex-col gap-5 px-5  ">
@@ -141,9 +144,12 @@ const Navbar = () => {
                     path === navLink.route && "text-cyan-500"
                   } font-medium`}
                 >
-                  <Link href={navLink.route}>{navLink.name}</Link>
+                  <div className="flex gap-2 items-center">
+                      <navLink.icon size={20}/>
+                      <Link href={navLink.route}>{navLink.name}</Link>
+                  </div>
                   {path === navLink.route && (
-                    <hr className="mt-1 w-8 border-2 border-cyan-500" />
+                    <hr className="mt-1 w-12 border-2 border-cyan-500" />
                   )}
                 </li>
               ))}
