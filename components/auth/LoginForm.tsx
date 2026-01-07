@@ -7,16 +7,13 @@ import { ILoginForm } from "@/utils/interfaces/LoginForm";
 import { useLogin } from "@/utils/apis/authApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import { IoMdMail } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
-import { login } from "@/redux/auth/authSlice";
 import { RotateLoader } from "react-spinners";
 import { useQueryClient } from "@tanstack/react-query";
 
 const LoginForm = () => {
   const queryClient = useQueryClient();
-  const dispatch = useDispatch();
   const router = useRouter();
   const {mutate,isPending} = useLogin();
   const {register,handleSubmit} = useForm<ILoginForm>();
@@ -24,10 +21,6 @@ const LoginForm = () => {
     mutate(data,{
         onSuccess: (response) => {
             toast.success(response.message);
-            dispatch(login({
-              // token:response.accessToken,
-              user:response.user
-            }));
             router.push("/");
             queryClient.invalidateQueries({queryKey:['user']})
         },

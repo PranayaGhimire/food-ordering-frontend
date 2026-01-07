@@ -39,8 +39,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { useGetProfile } from "@/utils/apis/userApi";
 
 const AllFoods = () => {
+  const {data:profile} = useGetProfile();
   const { data: orders } = useFindOrders();
   console.log(orders);
 

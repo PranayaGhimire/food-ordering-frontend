@@ -14,8 +14,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import {
   AlertDialog,
@@ -31,14 +29,14 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { MdAccountCircle } from "react-icons/md";
 import { useLogout } from "@/utils/apis/authApi";
+import { useGetProfile } from "@/utils/apis/userApi";
 
 const Navbar = () => {
   const path = usePathname();
-  // const token = useSelector((state: RootState) => state.authReducer.token);
-  const user = useSelector((state: RootState) => state.authReducer.user);
-  const first = user?.name.split(" ")[0];
-  const shortFirst = user?.name.slice(0, 1).toUpperCase();
-  const shortLast = user?.name.split(" ")[1]?.slice(0, 1).toUpperCase();
+  const {data:profile} = useGetProfile();
+  const first = profile?.data?.name.split(" ")[0];
+  const shortFirst = profile?.data?.name.slice(0, 1).toUpperCase();
+  const shortLast = profile?.data?.name.split(" ")[1]?.slice(0, 1).toUpperCase();
   const {mutate} = useLogout();
   return (
     <header>
@@ -58,7 +56,7 @@ const Navbar = () => {
           alt="Momo House Logo"
           className="rounded-full w-20 h-20"
         />
-        {user && <p className="font-medium">Welcome, {first}</p>}
+        {profile && <p className="font-medium">Welcome, {first}</p>}
         <ul className="md:flex gap-8 hidden">
           {navLinks.map((navLink) => (
             <li
@@ -75,7 +73,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {user ? (
+        {profile ? (
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="primary">{`${shortFirst}${shortLast}`}</Button>
@@ -85,7 +83,7 @@ const Navbar = () => {
                 <MdAccountCircle className="text-cyan-500 text-2xl" />{" "}
                 {`My Account`}
               </p>
-              <Link href={`/profile/${user?.name.replace(" ","_").replace(" ","_")}`}>Profile</Link>
+              <Link href={`/profile/${profile?.data?.name.replace(" ","_").replace(" ","_")}`}>Profile</Link>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">

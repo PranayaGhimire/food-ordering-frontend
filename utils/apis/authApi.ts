@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { IRegisterForm } from "../interfaces/RegisterForm";
 import { ILoginForm } from "../interfaces/LoginForm";
@@ -26,6 +26,7 @@ export const useLogin = () =>
     })
 
 export const useLogout = () => {
+   const queryClient = useQueryClient();
    const dispatch = useDispatch();
    const router = useRouter();
    return useMutation({
@@ -37,6 +38,7 @@ export const useLogout = () => {
             dispatch(logout());
             toast.success(response.message);
             router.push("/auth");
+            queryClient.removeQueries({queryKey:['user']})
         },
         onError: () => toast.error("Oops! Something Went Wrong")
     })

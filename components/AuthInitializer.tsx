@@ -1,23 +1,18 @@
 'use client';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import { login } from '@/redux/auth/authSlice';
+import { useGetProfile } from '@/utils/apis/userApi';
+import { RootState } from '@/redux/store';
 
 export default function AuthInitializer() {
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state:RootState) => state.authReducer.isAuthenticated);
 
   useEffect(() => {
-    // const token = Cookies.get('token');
-    const user = Cookies.get('user');
 
-    if (user) {
-      dispatch(
-        login({
-            user:JSON.parse(user)
-        }),
-      );
-    }
+    
   }, [dispatch]);
 
   return null;
