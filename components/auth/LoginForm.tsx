@@ -21,7 +21,7 @@ const LoginForm = () => {
     mutate(data,{
         onSuccess: (response) => {
             toast.success(response.message);
-            router.push("/");
+            router.push(response.user.role === 'ADMIN' ? '/admin' : '/');
             queryClient.invalidateQueries({queryKey:['user']})
         },
         onError() {

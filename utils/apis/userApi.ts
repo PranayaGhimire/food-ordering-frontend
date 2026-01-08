@@ -9,6 +9,15 @@ export const useUploadProfile = () =>
             return response.data;
         }
     })
+
+export const useGetUsers = () => 
+    useQuery({
+        queryKey:['users'],
+        queryFn: async () => {
+            const response = await axiosInstance.get(`/users`);
+            return response.data;
+        }
+    })
 export const useGetProfile = () => 
     useQuery({
         queryKey:['user'],
@@ -25,4 +34,12 @@ export const useUpdateProfile = () =>
             const response = await axiosInstance.put(`/users/me`,data);
             return response.data;
         }
+    })
+
+export const useDeleteUser = () => 
+    useMutation({
+        mutationFn: async (id:string) => {
+            const response = await axiosInstance.delete(`/users/${id}`);
+            return response.data;
+        } 
     })

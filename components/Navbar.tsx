@@ -89,7 +89,7 @@ const Navbar = () => {
               <Link href={`/profile/${profile?.data?.name.replace(" ","_").replace(" ","_")}`}>Profile</Link>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
+                  <Button className="bg-red-500 border-2 hover:border-red-500 hover:bg-white hover:text-red-500 transition-all duration-400  cursor-pointer">
                     Log Out<LogOut/>
                   </Button>
                 </AlertDialogTrigger>

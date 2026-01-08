@@ -1,8 +1,6 @@
 "use client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import Navbar from "./Navbar";
 import { Toaster } from "react-hot-toast";
-import Footer from "./Footer";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 
@@ -12,11 +10,9 @@ const Client = ({ children }: { children: React.ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <Toaster />
-        <Navbar />
         <main>
              {children}
         </main>
-        <Footer />
       </Provider>
     </QueryClientProvider>
   );

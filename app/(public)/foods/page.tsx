@@ -1,6 +1,5 @@
 import AllFoods from "@/components/foods/AllFoods";
 
-
 const Foods = () => {
 
   return (
