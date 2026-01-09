@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../interceptors/axiosInterceptor";
-import { IOrder } from "../interfaces/OrderInterface";
+import { ICreateOrder, IUpdateOrder } from "../interfaces/OrderInterface";
 
 export const useFindOrders = () =>
     useQuery({
@@ -13,8 +13,16 @@ export const useFindOrders = () =>
 
 export const useCreateOrder = () =>
     useMutation({
-        mutationFn: async (data:IOrder) => {
+        mutationFn: async (data:ICreateOrder) => {
             const response = await axiosInstance.post(`/orders`,data);
+            return response.data;
+        }
+    })
+
+export const useUpdateOrder = () =>
+    useMutation({
+        mutationFn: async (data:IUpdateOrder) => {
+            const response = await axiosInstance.put(`/orders/${data.id}`,data);
             return response.data;
         }
     })
