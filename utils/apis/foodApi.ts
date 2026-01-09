@@ -21,7 +21,7 @@ export const useGetFoods = () =>
         }
     });
 
-export const useGetFood = (id:string) =>
+export const useGetFood = (id:string | null) =>
     useQuery({
         queryKey:['foods',id],
         queryFn: async () => {

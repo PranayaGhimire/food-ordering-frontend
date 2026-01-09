@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 export const middleware = (request:NextRequest) => {
     const token = request.cookies.get('accessToken')?.value;
     const {pathname} = request.nextUrl;
+    const protectedRoutes = ['/profile','/orders'];
 
     const isAuthPage = pathname.startsWith('/auth');
-    const isProtectedPage = pathname.startsWith(`/profile`);
+    const isProtectedPage = protectedRoutes.some((p) => pathname.startsWith(p));
     const isAdminPage = pathname.startsWith('/admin');
 
     if((isProtectedPage || isAdminPage) && !token) {
@@ -26,5 +27,5 @@ export const middleware = (request:NextRequest) => {
 }
 
 export const config = {
-    matcher:['/auth/:path*',"/profile/:path*","/admin/:path*"],
+    matcher:['/auth/:path*',"/profile/:path*","/admin/:path*","/orders/:path*"],
 };

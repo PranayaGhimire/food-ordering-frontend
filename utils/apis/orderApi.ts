@@ -11,6 +11,15 @@ export const useFindOrders = () =>
         }
     })
 
+export const useFindOrder = (id:string | null) => 
+    useQuery({
+        queryKey:['orders',id],
+        queryFn: async () => {
+            const response = await axiosInstance.get(`/orders/${id}`);
+            return response.data;
+        }
+    })
+
 export const useCreateOrder = () =>
     useMutation({
         mutationFn: async (data:ICreateOrder) => {

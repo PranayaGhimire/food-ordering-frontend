@@ -1,9 +1,9 @@
 import {
-  BookA,
   CreditCard,
   LayoutDashboard,
   Soup,
   User,
+  UtensilsCrossed,
 } from "lucide-react";
 
 import Image from "next/image";
@@ -42,7 +42,7 @@ const items = [
   {
     title: "Orders",
     url: "/admin/orders",
-    icon: BookA,
+    icon: UtensilsCrossed,
   },
   {
     title: "Payments",
@@ -58,7 +58,10 @@ export function AppSidebar() {
       <SidebarContent>
         
         <SidebarGroup>
-           <CustomTrigger/>
+          <div className="hidden md:block">
+                <CustomTrigger/>
+          </div>
+         
           <div className="flex flex-col items-center">
                  <Image src={momoHouse} alt="Logo" className="w-20 h-20 rounded-full"/>
                    <SidebarGroupLabel className="text-[16px] text-center">

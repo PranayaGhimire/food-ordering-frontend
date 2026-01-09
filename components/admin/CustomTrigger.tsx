@@ -6,5 +6,5 @@ import { Button } from "../ui/button"
 export function CustomTrigger() {
   const { toggleSidebar,open,isMobile } = useSidebar()
 
-  return <Button variant={`primary`} onClick={toggleSidebar} className={` w-8 rounded-full`}>{open ? <ArrowLeft/> : isMobile? <Menu/> : <ArrowRight/>}</Button>
+  return <Button variant={`primary`} onClick={toggleSidebar} className={` w-8 rounded-full`}>{open && !isMobile ? <ArrowLeft/> : isMobile? <Menu/> : <ArrowRight/>}</Button>
 }

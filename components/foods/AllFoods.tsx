@@ -2,9 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useGetFoods } from "@/utils/apis/foodApi";
-import { CirclePlus, Eye, UtensilsCrossed } from "lucide-react";
+import { Eye, UtensilsCrossed } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import toast from "react-hot-toast";
 import { Skeleton } from "../ui/skeleton";
 import { useCreateOrder, useFindOrders } from "@/utils/apis/orderApi";
@@ -27,8 +26,10 @@ import {
 } from "../ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 import { useGetProfile } from "@/utils/apis/userApi";
+import { useRouter } from "next/navigation";
 
 const AllFoods = () => {
+  const router = useRouter();
   const {data:profile} = useGetProfile()
   const { data: orders } = useFindOrders();
   console.log(orders);
@@ -41,18 +42,13 @@ const AllFoods = () => {
     createOrder(data, {
       onSuccess: (response) => {
         toast.success(response.message);
+        router.push(`/orders?food=${data.food}&order=${response?.data?._id}`)
       },
       onError: () => toast.error("Oops! Something Went Wrong"),
     });
   };
   return (
     <div className="space-y-4">
-      <Button variant={`primary`}>
-        <Link href={`/foods/add`} className="flex gap-2 items-center">
-          <CirclePlus />
-          Add Food
-        </Link>
-      </Button>
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />
       ) : (
@@ -116,7 +112,7 @@ const AllFoods = () => {
                               </AlertDialogHeader>
                               <AlertDialogFooter>
                                   <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
-                                  <AlertDialogAction onClick={() => onOrder(f._id,)} className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">Continue</AlertDialogAction>
+                                  <AlertDialogAction onClick={() => onOrder(f._id)} className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">Continue</AlertDialogAction>
                               </AlertDialogFooter>
                           </AlertDialogContent>
                       </AlertDialog>

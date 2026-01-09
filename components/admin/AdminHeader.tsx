@@ -13,11 +13,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import { CustomTrigger } from "./CustomTrigger";
 
 const AdminHeader = () => {
   const { mutate } = useLogout();
   return (
     <header className="w-full flex gap-5 md:justify-between items-center bg-white p-3">
+      <div className="md:hidden">
+         <CustomTrigger/>
+      </div>
       <Input placeholder="Search..." className="w-100" />
       <AlertDialog>
         <AlertDialogTrigger asChild>
