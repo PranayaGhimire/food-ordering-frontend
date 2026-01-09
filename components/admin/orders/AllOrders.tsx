@@ -52,6 +52,7 @@ const AllOrders = () => {
             <TableHead className="text-center">Food</TableHead>
             <TableHead className="text-center">Price</TableHead>
             <TableHead className="text-center">Status</TableHead>
+            <TableHead>Payment Status</TableHead>
             <TableHead className="text-center">Order Date</TableHead>
             <TableHead className="text-center">Actions</TableHead>
           </TableRow>
@@ -64,6 +65,7 @@ const AllOrders = () => {
                 user: { name: string };
                 food: { name: string; price: number };
                 status: string;
+                paymentStatus:string;
                 createdAt: string;
               },
               index: number
@@ -78,6 +80,7 @@ const AllOrders = () => {
                   {order?.food?.price}
                 </TableCell>
                 <TableCell className="text-center">{order?.status}</TableCell>
+                <TableCell>{order?.paymentStatus}</TableCell>
                 <TableCell className="text-center">
                   {new Date(order?.createdAt).toDateString()}
                 </TableCell>
