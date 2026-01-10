@@ -1,7 +1,6 @@
 
 import AdminHeader from '@/components/admin/AdminHeader'
 import { AppSidebar } from '@/components/admin/AppSidebar'
-import { CustomTrigger } from '@/components/admin/CustomTrigger'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import React from 'react'
 

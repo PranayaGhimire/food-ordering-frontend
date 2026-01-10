@@ -42,7 +42,7 @@ const AllOrders = () => {
     });
   };
   return (
-    <Card>
+    <Card className="shadow-md border-t-4 border-t-cyan-500">
       <Table>
         <TableCaption>A list of orders</TableCaption>
         <TableHeader>
@@ -52,7 +52,8 @@ const AllOrders = () => {
             <TableHead className="text-center">Food</TableHead>
             <TableHead className="text-center">Price</TableHead>
             <TableHead className="text-center">Status</TableHead>
-            <TableHead>Payment Status</TableHead>
+            <TableHead className="text-center">Khalti Pidx</TableHead>
+            <TableHead className="text-center">Payment Status</TableHead>
             <TableHead className="text-center">Order Date</TableHead>
             <TableHead className="text-center">Actions</TableHead>
           </TableRow>
@@ -65,6 +66,7 @@ const AllOrders = () => {
                 user: { name: string };
                 food: { name: string; price: number };
                 status: string;
+                khaltiPidx: string;
                 paymentStatus:string;
                 createdAt: string;
               },
@@ -72,7 +74,7 @@ const AllOrders = () => {
             ) => (
               <TableRow key={order._id}>
                 <TableCell className="text-center">{index + 1}</TableCell>
-                <TableCell>{order?.user?.name}</TableCell>
+                <TableCell className="text-center">{order?.user?.name}</TableCell>
                 <TableCell className="text-center">
                   {order?.food?.name}
                 </TableCell>
@@ -80,7 +82,8 @@ const AllOrders = () => {
                   {order?.food?.price}
                 </TableCell>
                 <TableCell className="text-center">{order?.status}</TableCell>
-                <TableCell>{order?.paymentStatus}</TableCell>
+                <TableCell className="text-center">{order?.khaltiPidx}</TableCell>
+                <TableCell className="text-center">{order?.paymentStatus}</TableCell>
                 <TableCell className="text-center">
                   {new Date(order?.createdAt).toDateString()}
                 </TableCell>

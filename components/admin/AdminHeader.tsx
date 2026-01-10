@@ -18,7 +18,7 @@ import { CustomTrigger } from "./CustomTrigger";
 const AdminHeader = () => {
   const { mutate } = useLogout();
   return (
-    <header className="w-full flex gap-5 md:justify-between items-center bg-white p-3">
+    <header className="w-full flex gap-5 md:justify-between items-center bg-white p-3 shadow-md">
       <div className="md:hidden">
          <CustomTrigger/>
       </div>

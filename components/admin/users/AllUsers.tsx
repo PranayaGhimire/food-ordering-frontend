@@ -24,7 +24,7 @@ const AllUsers = () => {
   }
   return (
     <>
-        <Card>
+        <Card className="shadow-md border-t-4 border-t-cyan-500">
             <Table>
                 <TableCaption>A list of users.</TableCaption>
                 <TableHeader>
@@ -52,7 +52,7 @@ const AllUsers = () => {
                                     </AlertDialogTrigger>
                                     <AlertDialogContent>
                                         <AlertDialogHeader>
-                                            <AlertDialogTitle>Are you sure you want to delete ?</AlertDialogTitle>
+                                            <AlertDialogTitle>Are you sure you want to delete this account ?</AlertDialogTitle>
                                             <AlertDialogDescription>This action cannot be undone. This account will be permanently deleted from our servers.</AlertDialogDescription>
                                         </AlertDialogHeader>
                                         <AlertDialogFooter>

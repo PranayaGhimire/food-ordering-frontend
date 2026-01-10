@@ -1,5 +1,4 @@
 import {
-  CreditCard,
   LayoutDashboard,
   Soup,
   User,
@@ -44,16 +43,11 @@ const items = [
     url: "/admin/orders",
     icon: UtensilsCrossed,
   },
-  {
-    title: "Payments",
-    url: "/admin/payments",
-    icon: CreditCard,
-  },
 ];
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="shadow-md">
      
       <SidebarContent>
         
@@ -62,8 +56,8 @@ export function AppSidebar() {
                 <CustomTrigger/>
           </div>
          
-          <div className="flex flex-col items-center">
-                 <Image src={momoHouse} alt="Logo" className="w-20 h-20 rounded-full"/>
+          <div className="my-4 flex flex-col items-center">
+                 <Image src={momoHouse} alt="Logo" className="w-20  rounded-full"/>
                    <SidebarGroupLabel className="text-[16px] text-center">
             The Momo House
           </SidebarGroupLabel>

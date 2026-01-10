@@ -19,7 +19,7 @@ const KhaltiPayment = () => {
   };
   return (
     <div className="px-5 md:px-20 py-10 space-y-3">
-      <h1>Your payment has been initiated successfully</h1>
+      <h1 className="text-[18px] font-medium">Your payment has been initiated successfully</h1>
       <h2>Click on verify payment to verify the payment</h2>
       <Button onClick={handleVerifyKhalti} variant={`primary`}>
         Verify Payment

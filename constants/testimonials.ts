@@ -1,5 +1,5 @@
-import willByers from "@/assets/willByers.avif";
-import nancy from "@/assets/nancy.avif";
+import willByers from "@/assets/willByers.jpg";
+import nancy from "@/assets/nancy.jpg";
 import dustin from "@/assets/Dustin.jpg";
 import max from "@/assets/max.jpg";
 export const testimonials = [
