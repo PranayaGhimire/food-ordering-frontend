@@ -5,7 +5,7 @@ export interface modeState {
 }
 
 const initialState: modeState = {
-  value: true,
+  value: false,
 }
 
 export const modeSlice = createSlice({

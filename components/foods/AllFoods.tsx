@@ -6,7 +6,7 @@ import { Eye, UtensilsCrossed } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { Skeleton } from "../ui/skeleton";
-import { useCreateOrder, useFindOrders } from "@/utils/apis/orderApi";
+import { useCreateOrder } from "@/utils/apis/orderApi";
 import {
   Table,
   TableBody,
@@ -55,7 +55,7 @@ const AllFoods = () => {
           <Table>
             <TableCaption>A list of foods.</TableCaption>
             <TableHeader>
-              <TableRow>
+              <TableRow className="">
                 <TableHead className="text-center">S.N.</TableHead>
                 <TableHead className="text-center">Name</TableHead>
                 <TableHead className="text-center">Price</TableHead>

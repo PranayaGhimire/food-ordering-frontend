@@ -153,7 +153,7 @@ const Navbar = () => {
                 <Sun />
             </div>
           ) : (
-            <div>
+            <div className="flex gap-3 items-center">
               <Moon />
               Dark Mode
             </div>
