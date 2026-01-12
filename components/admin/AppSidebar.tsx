@@ -1,6 +1,6 @@
 'use client'
 import {
-  LayoutDashboard,
+  Star,
   Soup,
   User,
   UtensilsCrossed,
@@ -21,13 +21,14 @@ import {
 import Link from "next/link";
 import { CustomTrigger } from "./CustomTrigger";
 import { usePathname } from "next/navigation";
+import { RxDashboard } from "react-icons/rx";
 
 // Menu items.
 const items = [
   {
     title: "Dashboard",
     url: "/admin",
-    icon: LayoutDashboard,
+    icon: RxDashboard,
   },
   {
     title: "Users",
@@ -44,6 +45,11 @@ const items = [
     url: "/admin/orders",
     icon: UtensilsCrossed,
   },
+  {
+    title:"Ratings",
+    url:"/admin/ratings",
+    icon: Star
+  }
 ];
 
 export function AppSidebar() {

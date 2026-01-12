@@ -10,7 +10,7 @@ const Client = ({ children }: { children: React.ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <Toaster />
-        <main className="bg-gray-200">
+        <main>
              {children}
         </main>
       </Provider>

@@ -3,13 +3,15 @@ import { Button } from "@/components/ui/button";
 import { useFindOrder } from "@/utils/apis/orderApi";
 import { useVerifyKhalti } from "@/utils/apis/paymentApi";
 import { useAddRating } from "@/utils/apis/ratingApi";
+import { useGetProfile } from "@/utils/apis/userApi";
 import { RefreshCcw, ShieldCheck } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 const KhaltiPayment = () => {
+  const {data:profile} = useGetProfile();
   const [rating, setRating] = useState<number>();
   const searchParams = useSearchParams();
   const pidx = searchParams.get("pidx");
@@ -20,7 +22,7 @@ const KhaltiPayment = () => {
   const { mutate: verifyKhalti, isPending } = useVerifyKhalti();
   const { mutate: addRating } = useAddRating();
   const handleVerifyKhalti = () => {
-    const data = { pidx, orderId };
+  const data = { pidx, orderId };
     verifyKhalti(data, {
       onSuccess: (response) => {
         toast.success(response.message);
@@ -30,7 +32,7 @@ const KhaltiPayment = () => {
   };
   const handleAddRating = (index: number) => {
     setRating(index);
-    const data = { order: orderId, rating };
+    const data = {user:profile?.data?._id, order: orderId, rating };
     addRating(data, {
       onSuccess: (response) => {
         toast.success(response.message);

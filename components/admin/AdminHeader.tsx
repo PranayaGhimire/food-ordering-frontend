@@ -19,21 +19,28 @@ import { ChangeEvent, useState } from "react";
 
 const AdminHeader = () => {
   const { mutate } = useLogout();
-  const [searchValue,setSearchValue] = useState<string>();
-  const handleSearch = (e:ChangeEvent<HTMLInputElement>) => {
-      setSearchValue(e.target.value);
-      console.log(searchValue);
-  }
+  const [searchValue, setSearchValue] = useState<string>();
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+    console.log(searchValue);
+  };
   return (
     <header className="w-full flex gap-5 md:justify-between items-center bg-white p-3 shadow-md">
       <div className="md:hidden">
-         <CustomTrigger/>
+        <CustomTrigger />
       </div>
-      <Input defaultValue={searchValue} onChange={handleSearch} type="search" placeholder="Search..." className="w-100" />
+      <Input
+        defaultValue={searchValue}
+        onChange={handleSearch}
+        type="search"
+        placeholder="Search..."
+        className="w-100"
+      />
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
-            Log Out<LogOut/>
+          <Button className="bg-red-500 hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500 hover:transition-all hover:duration-400 cursor-pointer">
+            Log Out
+            <LogOut />
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
