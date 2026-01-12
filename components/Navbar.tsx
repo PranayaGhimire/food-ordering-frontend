@@ -30,15 +30,23 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { MdAccountCircle } from "react-icons/md";
 import { useLogout } from "@/utils/apis/authApi";
 import { useGetProfile } from "@/utils/apis/userApi";
-import { LogIn, LogOut } from "lucide-react";
+import { LogIn, LogOut, Moon, Sun } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "@/redux/mode/modeSlice";
+import { RootState } from "@/redux/store";
 
 const Navbar = () => {
+  const isDarkMode = useSelector((state: RootState) => state.mode.value);
+  const dispatch = useDispatch();
   const path = usePathname();
-  const {data:profile} = useGetProfile();
+  const { data: profile } = useGetProfile();
   const first = profile?.data?.name.split(" ")[0];
   const shortFirst = profile?.data?.name.slice(0, 1).toUpperCase();
-  const shortLast = profile?.data?.name.split(" ")[1]?.slice(0, 1).toUpperCase();
-  const {mutate} = useLogout();
+  const shortLast = profile?.data?.name
+    .split(" ")[1]
+    ?.slice(0, 1)
+    .toUpperCase();
+  const { mutate } = useLogout();
   return (
     <header>
       <div className="flex  justify-center  lg:justify-between items-center bg-cyan-600 h-14 px-20 text-white ">
@@ -67,7 +75,8 @@ const Navbar = () => {
               } font-medium`}
             >
               <div className="flex gap-2 items-center">
-                <navLink.icon size={20}/> <Link href={navLink.route}>{navLink.name}</Link>
+                <navLink.icon size={20} />{" "}
+                <Link href={navLink.route}>{navLink.name}</Link>
               </div>
               {path === navLink.route && (
                 <hr className="mt-1 w-12 border-2 border-cyan-500" />
@@ -86,11 +95,18 @@ const Navbar = () => {
                 <MdAccountCircle className="text-cyan-500 text-2xl" />{" "}
                 {`My Account`}
               </p>
-              <Link href={`/profile/${profile?.data?.name.replace(" ","_").replace(" ","_")}`}>Profile</Link>
+              <Link
+                href={`/profile/${profile?.data?.name
+                  .replace(" ", "_")
+                  .replace(" ", "_")}`}
+              >
+                Profile
+              </Link>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button className="bg-red-500 border-2 hover:border-red-500 hover:bg-white hover:text-red-500 transition-all duration-400  cursor-pointer">
-                    Log Out<LogOut/>
+                    Log Out
+                    <LogOut />
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
@@ -120,9 +136,29 @@ const Navbar = () => {
           </Popover>
         ) : (
           <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
-            <Link href={`/auth`} className="flex gap-2 items-center">Log In<LogIn/></Link>
+            <Link href={`/auth`} className="flex gap-2 items-center">
+              Log In
+              <LogIn />
+            </Link>
           </Button>
         )}
+        <Button
+          variant={`primary`}
+          onClick={() => dispatch(toggleMode())}
+          className="hidden md:block"
+        >
+          {isDarkMode ? (
+            <div className="flex  gap-3 items-center">
+              Light Mode
+                <Sun />
+            </div>
+          ) : (
+            <div>
+              <Moon />
+              Dark Mode
+            </div>
+          )}
+        </Button>
         <Sheet>
           <SheetTrigger asChild>
             <Button className="bg-cyan-500 md:hidden">
@@ -133,7 +169,8 @@ const Navbar = () => {
             <SheetHeader>
               <SheetTitle>The Momo House</SheetTitle>
               <SheetDescription>
-                We Provide online delivery of foods and our special here is momos and its types.
+                We Provide online delivery of foods and our special here is
+                momos and its types.
               </SheetDescription>
             </SheetHeader>
             <ul className="md:hidden flex flex-col gap-5 px-5  ">
@@ -145,8 +182,8 @@ const Navbar = () => {
                   } font-medium`}
                 >
                   <div className="flex gap-2 items-center">
-                      <navLink.icon size={20}/>
-                      <Link href={navLink.route}>{navLink.name}</Link>
+                    <navLink.icon size={20} />
+                    <Link href={navLink.route}>{navLink.name}</Link>
                   </div>
                   {path === navLink.route && (
                     <hr className="mt-1 w-12 border-2 border-cyan-500" />

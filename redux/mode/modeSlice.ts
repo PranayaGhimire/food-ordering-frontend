@@ -1,31 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface AuthState {
-  isAuthenticated:boolean;
+export interface modeState {
+  value: boolean
 }
 
-const initialState: AuthState = {
-  isAuthenticated: false
+const initialState: modeState = {
+  value: true,
 }
 
-export const authSlice = createSlice({
-  name: 'auth',
+export const modeSlice = createSlice({
+  name: 'mode',
   initialState,
   reducers: {
-    login: (state) => {
+    toggleMode: (state) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.isAuthenticated = true;
+      state.value = !state.value;
     },
-    logout:(state) => {
-        state.isAuthenticated = false;
-    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { login, logout } = authSlice.actions
+export const { toggleMode } = modeSlice.actions
 
-export default authSlice.reducer
+export default modeSlice.reducer

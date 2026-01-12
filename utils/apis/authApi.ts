@@ -3,9 +3,7 @@ import axios from "axios";
 import { IRegisterForm } from "../interfaces/RegisterForm";
 import { ILoginForm } from "../interfaces/LoginForm";
 import { axiosInstance } from "../interceptors/axiosInterceptor";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { logout } from "@/redux/auth/authSlice";
 import toast from "react-hot-toast";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL;
@@ -27,7 +25,6 @@ export const useLogin = () =>
 
 export const useLogout = () => {
    const queryClient = useQueryClient();
-   const dispatch = useDispatch();
    const router = useRouter();
    return useMutation({
         mutationFn: async () => {
@@ -35,7 +32,6 @@ export const useLogout = () => {
             return response.data;
         },
         onSuccess: (response) => {
-            dispatch(logout());
             toast.success(response.message);
             router.push("/auth");
             queryClient.removeQueries({queryKey:['user']})
