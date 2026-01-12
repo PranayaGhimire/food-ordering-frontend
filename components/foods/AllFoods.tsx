@@ -27,22 +27,21 @@ import {
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 import { useGetProfile } from "@/utils/apis/userApi";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AllFoods = () => {
   const router = useRouter();
   const {data:profile} = useGetProfile()
-  const { data: orders } = useFindOrders();
-  console.log(orders);
-
   const { data: foods, isLoading } = useGetFoods();
-  console.log(foods);
   const { mutate: createOrder } = useCreateOrder();
+  const queryClient = useQueryClient();
   const onOrder = (id: string) => {
     const data = { food: id,user:profile?.data?._id };
     createOrder(data, {
       onSuccess: (response) => {
         toast.success(response.message);
-        router.push(`/orders?food=${data.food}&order=${response?.data?._id}`)
+        router.push(`/orders?food=${data.food}&order=${response?.data?._id}`);
+        queryClient.invalidateQueries({queryKey:['orders']});
       },
       onError: () => toast.error("Oops! Something Went Wrong"),
     });

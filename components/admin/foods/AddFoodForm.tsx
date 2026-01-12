@@ -20,7 +20,7 @@ const AddFoodForm = () => {
     mutate(formData, {
       onSuccess: (response) => {
         toast.success(response.message);
-        router.push("/foods");
+        router.push("/admin/foods");
       },
       onError: () => toast.error("Oops! Something Went Wrong"),
     });

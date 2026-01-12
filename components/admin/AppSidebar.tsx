@@ -1,3 +1,4 @@
+'use client'
 import {
   LayoutDashboard,
   Soup,
@@ -16,10 +17,10 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { CustomTrigger } from "./CustomTrigger";
+import { usePathname } from "next/navigation";
 
 // Menu items.
 const items = [
@@ -46,6 +47,7 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
   return (
     <Sidebar collapsible="icon" className="shadow-md">
      
@@ -65,16 +67,18 @@ export function AppSidebar() {
         
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {items.map((item) => { 
+                const isActive = pathname === item.url
+                return (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive>
+                  <SidebarMenuButton asChild className={`${isActive && 'bg-cyan-500 text-white'} text-[16px] p-4 hover:bg-white hover:border-2 hover:border-cyan-500 hover:text-cyan-500 font-medium transition-all ease-in-out duration-400   `}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
+              )})}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

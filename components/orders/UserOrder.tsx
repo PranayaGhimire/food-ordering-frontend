@@ -32,7 +32,7 @@ const UserOrder = () => {
     });
   };
   const handleInitiateKhalti = () => {
-    const data = { amount: food?.data?.price, orderId };
+    const data = { amount: food?.data?.price, orderId,food: food?.data?.name };
     initiateKhalti(data, {
       onSuccess: (response) => {
         toast.success(response.message);

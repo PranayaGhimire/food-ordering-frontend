@@ -14,19 +14,26 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { CustomTrigger } from "./CustomTrigger";
+import { LogOut } from "lucide-react";
+import { ChangeEvent, useState } from "react";
 
 const AdminHeader = () => {
   const { mutate } = useLogout();
+  const [searchValue,setSearchValue] = useState<string>();
+  const handleSearch = (e:ChangeEvent<HTMLInputElement>) => {
+      setSearchValue(e.target.value);
+      console.log(searchValue);
+  }
   return (
     <header className="w-full flex gap-5 md:justify-between items-center bg-white p-3 shadow-md">
       <div className="md:hidden">
          <CustomTrigger/>
       </div>
-      <Input placeholder="Search..." className="w-100" />
+      <Input defaultValue={searchValue} onChange={handleSearch} type="search" placeholder="Search..." className="w-100" />
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
-            Log Out
+            Log Out<LogOut/>
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>

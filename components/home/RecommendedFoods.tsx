@@ -2,6 +2,8 @@ import { foodItems } from "@/constants/foodItems";
 import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import Image from "next/image";
+import Link from "next/link";
+import { UtensilsCrossed } from "lucide-react";
 const RecommendedFoods = () => {
   return (
     <div className="flex flex-col gap-8 px-5 md:px-20 py-20">
@@ -16,8 +18,8 @@ const RecommendedFoods = () => {
                     <CardTitle>{f.name}</CardTitle>
                     <CardDescription>Rs. {f.price}</CardDescription>
                     <CardAction>
-                      <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
-                        Order
+                      <Button variant={`primary`} asChild>
+                          <Link href={`/foods`}><UtensilsCrossed/>Order</Link>
                       </Button>
                     </CardAction>
                   </CardHeader>

@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/table";
 import { useFindOrders, useUpdateOrder } from "@/utils/apis/orderApi";
 import { useQueryClient } from "@tanstack/react-query";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import toast from "react-hot-toast";
 
 const AllOrders = () => {
@@ -90,7 +91,7 @@ const AllOrders = () => {
                 <TableCell className="flex gap-4 justify-center">
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant={`primary`}>Accept</Button>
+                      <Button variant={`primary`}>Accept<ArrowUp/></Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
@@ -120,7 +121,7 @@ const AllOrders = () => {
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button className="bg-red-500 hover:border-2 hover:border-red-500 hover:text-red-500 hover:bg-white transition-all duration-400 cursor-pointer">
-                        Reject
+                        Reject<ArrowDown/>
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>

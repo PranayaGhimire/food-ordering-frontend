@@ -31,21 +31,21 @@ const ContactUs = () => {
       <div className="w-full flex flex-col md:flex-row px-5 md:px-20 py-10 space-y-10 ">
         <div className="md:w-[1/2] space-y-5">
           <p className="text-[20px] font-semibold">Get In Touch</p>
-          <p>
+          <p className="text-[18px]">
             Have questions about our service or need help for home delivery of
             food ? Reach out to us anytime and our friendly team will assist
             you.
           </p>
-          <p className="flex items-center gap-2 ">
+          <p className="flex items-center gap-2 text-[18px] ">
             <FaLocationDot className="text-cyan-500" />
             <span className="font-semibold">Address: </span>3rd floor, Adharsha
             Chowk, Jyotinagar, Bharatpur, Nepal
           </p>
-          <p className="flex items-center gap-2">
+          <p className="flex items-center gap-2 text-[18px]">
             <IoMdMail className="text-cyan-500" />
             <span className="font-semibold">Email: </span>rest@themomohouse.com
           </p>
-          <p className="flex items-center gap-2">
+          <p className="flex items-center gap-2 text-[18px]">
             <IoCall className="text-cyan-500" />
             <span className="font-semibold">Phone: </span>+977-9840505684
           </p>
@@ -86,8 +86,8 @@ const ContactUs = () => {
             >
               {faqs.map((f) => (
                 <AccordionItem key={f.title} value={f.title}>
-                  <AccordionTrigger className="">{f.title}</AccordionTrigger>
-                  <AccordionContent className=" flex flex-col gap-4 text-balance">
+                  <AccordionTrigger className="text-[18px]">{f.title}</AccordionTrigger>
+                  <AccordionContent className="text-[16px] flex flex-col gap-4 text-balance">
                     {f.content}
                   </AccordionContent>
                 </AccordionItem>

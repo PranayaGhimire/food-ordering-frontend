@@ -2,7 +2,7 @@ import AllFoodsAdmin from "@/components/admin/foods/AllFoodsAdmin"
 
 const Foods = () => {
   return (
-    <div className="p-5">
+    <div className="p-5 space-y-3">
         <h1 className="text-[18px] font-medium">Foods</h1>
         <AllFoodsAdmin/>
     </div>
