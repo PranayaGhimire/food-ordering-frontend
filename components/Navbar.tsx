@@ -40,9 +40,9 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const path = usePathname();
   const { data: profile } = useGetProfile();
-  const first = profile?.data?.name.split(" ")[0];
-  const shortFirst = profile?.data?.name.slice(0, 1).toUpperCase();
-  const shortLast = profile?.data?.name
+  const first = profile?.data?.fullName.split(" ")[0];
+  const shortFirst = profile?.data?.fullName.slice(0, 1).toUpperCase();
+  const shortLast = profile?.data?.fullName
     .split(" ")[1]
     ?.slice(0, 1)
     .toUpperCase();
@@ -96,7 +96,7 @@ const Navbar = () => {
                 {`My Account`}
               </p>
               <Link
-                href={`/profile/${profile?.data?.name
+                href={`/profile/${profile?.data?.fullName
                   .replace(" ", "_")
                   .replace(" ", "_")}`}
               >

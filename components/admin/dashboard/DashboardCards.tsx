@@ -41,7 +41,7 @@ const DashboardCards = () => {
   ];
   return (
     <>
-      <p className="font-medium">Welcome, {profile?.data?.name}</p>
+      <p className="font-medium">Welcome, {profile?.data?.fullName}</p>
       {isUsersLoading || isFoodsLoading || isOrdersLoading || isRatingsLoading ? (
         <div className="flex flex-col md:flex-row gap-5">
           <Skeleton className="w-40 h-28 bg-gray-400 rounded-md" />

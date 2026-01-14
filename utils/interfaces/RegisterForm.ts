@@ -3,8 +3,9 @@ export enum UserRole {
     ADMIN="ADMIN",
 }
 export interface IRegisterForm {
-    name:string;
+    fullName:string;
     username:string;
+    phoneNumber:string;
     email:string;
     password:string;
     role:UserRole,

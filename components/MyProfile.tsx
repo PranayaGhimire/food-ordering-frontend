@@ -49,9 +49,10 @@ const MyProfile = () => {
   useEffect(() => {
     if(profile?.data) {
       reset({
-        name:profile.data.name,
+        fullName:profile.data.name,
         username:profile.data.username,
         email:profile.data.email,
+        phoneNumber:profile.data.phoneNumber,
         role:profile.data.role
       })
     }
@@ -106,8 +107,8 @@ const MyProfile = () => {
               <div className="md:w-1/2 space-y-2">
                 <Label>Full Name</Label>
                 <Input
-                  {...register("name")}
-                  defaultValue={profile?.data?.name}
+                  {...register("fullName")}
+                  defaultValue={profile?.data?.fullName}
                 />
               </div>
               <div className="md:w-1/2 space-y-2">
@@ -145,6 +146,10 @@ const MyProfile = () => {
               </div>
             </div> */}
             {/*  */}
+            <div className="md:w-1/2 space-y-2">
+                <Label>Phone Number</Label>
+                <Input defaultValue={profile?.data?.phoneNumber} />
+            </div>
             <Button
               disabled={isUpdateProfilePending}
               className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"

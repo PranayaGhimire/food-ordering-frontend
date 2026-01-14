@@ -1,7 +1,7 @@
 'use client'
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useDeleteRating, useGetRatings } from "@/utils/apis/ratingApi"
 import { useQueryClient } from "@tanstack/react-query"
 import { Trash } from "lucide-react"
@@ -25,6 +25,7 @@ const AllRatings = () => {
     <>
         <Card>
             <Table>
+                <TableCaption>A list of ratings</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="text-center">S.N.</TableHead>

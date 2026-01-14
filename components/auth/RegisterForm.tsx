@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useForm } from "react-hook-form";
 import {
   NativeSelect,
@@ -10,23 +10,23 @@ import { IRegisterForm } from "@/utils/interfaces/RegisterForm";
 import { Button } from "../ui/button";
 import { useRegister } from "@/utils/apis/authApi";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { FaLock, FaUserAlt, FaUserCheck, FaUserCircle } from "react-icons/fa";
+import { FaLock, FaPhoneAlt, FaUserAlt, FaUserCheck, FaUserCircle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RotateLoader } from "react-spinners";
+import { useQueryClient } from "@tanstack/react-query";
 
 const RegisterForm = () => {
-  const router = useRouter();
-  const {mutate,isPending} = useRegister();
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useRegister();
   const { register, handleSubmit } = useForm<IRegisterForm>();
   const onSubmit = (data: IRegisterForm) => {
-    mutate(data,{
-        onSuccess:(response) =>{
-            toast.success(response.message);
-            router.refresh();
-        },
-        onError:() => toast.error("Oops! something went wrong") 
-    })
+    mutate(data, {
+      onSuccess: (response) => {
+        toast.success(response.message);
+        queryClient.setQueryData(['user'],{data:response.data})
+      },
+      onError: () => toast.error("Oops! something went wrong"),
+    });
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
@@ -34,7 +34,7 @@ const RegisterForm = () => {
         <Label htmlFor="fullname">Full Name</Label>
         <Input
           className="pl-8.5"
-          {...register("name")}
+          {...register("fullName")}
           defaultValue="Pedro Duarte"
         />
         <FaUserCircle className="text-xl absolute top-9.5 left-2 text-cyan-500" />
@@ -42,15 +42,24 @@ const RegisterForm = () => {
       <div className="relative grid gap-3">
         <Label htmlFor="username">Username</Label>
         <Input
-         className="pl-8"
+          className="pl-8"
           {...register("username")}
           defaultValue="@peduarte"
         />
         <FaUserAlt className=" absolute top-10 left-2 text-cyan-500" />
       </div>
       <div className="relative grid gap-3">
+        <Label htmlFor="phoneNumber">Phone Number</Label>
+        <Input
+          className="pl-8"
+          {...register("phoneNumber")}
+          defaultValue="9840505684"
+        />
+        <FaPhoneAlt className=" absolute top-10 left-2 text-cyan-500" />
+      </div>
+      <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
-        <Input 
+        <Input
           className="pl-8"
           {...register("email")}
           defaultValue="peduarte@email"
@@ -77,8 +86,11 @@ const RegisterForm = () => {
         </NativeSelect>
         <FaUserCheck className="text-xl absolute top-8.5 left-2 text-cyan-500" />
       </div>
-      <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer" disabled={isPending}>
-        {isPending ? <RotateLoader  size={8} color="white" /> : 'Submit'}
+      <Button
+        className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+        disabled={isPending}
+      >
+        {isPending ? <RotateLoader size={8} color="white" /> : "Submit"}
       </Button>
     </form>
   );
