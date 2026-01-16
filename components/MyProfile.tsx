@@ -132,7 +132,7 @@ const MyProfile = () => {
               </div>
               <div className="md:w-1/2 space-y-2">
                 <Label>Role</Label>
-                <Input defaultValue={profile?.data?.role} />
+                <Input {...register('role')} defaultValue={profile?.data?.role} />
               </div>
             </div>
             {/* Password */}
@@ -149,7 +149,7 @@ const MyProfile = () => {
             {/*  */}
             <div className="md:w-1/2 space-y-2">
                 <Label>Phone Number</Label>
-                <Input defaultValue={profile?.data?.phoneNumber} />
+                <Input {...register('phoneNumber')} defaultValue={profile?.data?.phoneNumber} />
             </div>
             <Button
               disabled={isUpdateProfilePending}
