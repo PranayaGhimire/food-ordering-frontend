@@ -28,6 +28,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useGetProfile } from "@/utils/apis/userApi";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { Switch } from "../ui/switch";
 
 const AllFoods = () => {
   const router = useRouter();
@@ -35,8 +36,9 @@ const AllFoods = () => {
   const { data: foods, isLoading } = useGetFoods();
   const { mutate: createOrder } = useCreateOrder();
   const queryClient = useQueryClient();
-  const onOrder = (id: string) => {
+  const onOrder = (id: string,isAvailable: boolean,name: string) => {
     const data = { food: id,user:profile?.data?._id };
+    if (isAvailable)
     createOrder(data, {
       onSuccess: (response) => {
         toast.success(response.message);
@@ -45,6 +47,8 @@ const AllFoods = () => {
       },
       onError: () => toast.error("Oops! Something Went Wrong"),
     });
+    else 
+      toast.error(`Sorry ${name} is not available at this moment`)
   };
   return (
     <div className="space-y-4">
@@ -59,6 +63,7 @@ const AllFoods = () => {
                 <TableHead className="text-center">S.N.</TableHead>
                 <TableHead className="text-center">Name</TableHead>
                 <TableHead className="text-center">Price</TableHead>
+                <TableHead className="text-center">Availability</TableHead>
                 <TableHead className="text-center">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -69,6 +74,7 @@ const AllFoods = () => {
                     _id: string;
                     name: string;
                     price: string;
+                    isAvailable: boolean;
                     image: string;
                   },
                   index: number
@@ -77,6 +83,7 @@ const AllFoods = () => {
                     <TableCell className="text-center">{index + 1}</TableCell>
                     <TableCell className="text-center">{f.name}</TableCell>
                     <TableCell className="text-center">Rs. {f.price}</TableCell>
+                    <TableCell className="text-center"><Switch checked={f.isAvailable}/></TableCell>
                     <TableCell className="text-center space-x-3">
                       <Dialog>
                         <DialogTrigger asChild>
@@ -111,7 +118,7 @@ const AllFoods = () => {
                               </AlertDialogHeader>
                               <AlertDialogFooter>
                                   <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
-                                  <AlertDialogAction onClick={() => onOrder(f._id)} className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">Continue</AlertDialogAction>
+                                  <AlertDialogAction onClick={() => onOrder(f._id,f.isAvailable,f.name)} className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">Continue</AlertDialogAction>
                               </AlertDialogFooter>
                           </AlertDialogContent>
                       </AlertDialog>

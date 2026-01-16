@@ -32,16 +32,18 @@ const AllRatings = () => {
                         <TableHead className="text-center">User</TableHead>
                         <TableHead className="text-center">Food</TableHead>
                         <TableHead className="text-center">Rating</TableHead>
+                        <TableHead className="text-center">Comment</TableHead>
                         <TableHead className="text-center">Actions</TableHead>    
                     </TableRow>    
                 </TableHeader>
                 <TableBody>
-                   {ratings?.data?.map((rating:{_id:string,user:{name:string},order:{food:string},rating:number},index:number) => 
+                   {ratings?.data?.map((rating:{_id:string,user:{fullName:string},order:{food:string},rating:number,comment:string},index:number) => 
                         <TableRow key={rating._id}>
                             <TableCell className="text-center">{index+1}</TableCell>
-                            <TableCell className="text-center">{rating?.user?.name}</TableCell>
+                            <TableCell className="text-center">{rating?.user?.fullName}</TableCell>
                             <TableCell className="text-center">{rating?.order.food}</TableCell>
                             <TableCell className="text-center">{rating.rating}</TableCell>
+                            <TableCell className="text-center">{rating?.comment}</TableCell>
                             <TableCell className="text-center">
                                 <Button onClick={() => handleDeleteRating(rating._id)} 
                                 className="bg-red-500 hover:bg-white hover:text-red-500 hover:border-2 hover:border-red-500 cursor-pointer transition-all duration-400"><Trash/>Delete</Button>

@@ -1,7 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useDeleteFood, useGetFoods } from "@/utils/apis/foodApi";
+import {
+  useDeleteFood,
+  useGetFoods,
+  useUpdateFoodAvailability,
+} from "@/utils/apis/foodApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { CirclePlus, Edit, Eye, Trash } from "lucide-react";
 import Image from "next/image";
@@ -36,12 +40,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../ui/dialog";
-
+import { Switch } from "@/components/ui/switch";
 
 const AllFoodsAdmin = () => {
   const { data: foods, isLoading } = useGetFoods();
+  console.log(foods);
+
   const { mutate: deleteFood } = useDeleteFood();
+  const { mutate: updateFoodAvailability } = useUpdateFoodAvailability();
   const queryClient = useQueryClient();
+  const handleUpdateFoodAvailability = (id: string, current: boolean) => {
+    updateFoodAvailability({
+      id,
+      isAvailable:!current
+    },{
+      onSuccess: (response) => {
+        toast.success(response.message);
+        queryClient.invalidateQueries({queryKey:['foods']});
+      },
+      onError: () => toast.error('Oops! Something Went Wrong')
+    });
+  };
   const handleDeleteFood = (id: string) => {
     deleteFood(id, {
       onSuccess: (response) => {
@@ -70,6 +89,7 @@ const AllFoodsAdmin = () => {
                 <TableHead className="text-center">S.N.</TableHead>
                 <TableHead className="text-center">Name</TableHead>
                 <TableHead className="text-center">Price</TableHead>
+                <TableHead className="text-center">Availability</TableHead>
                 <TableHead className="text-center">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -80,6 +100,7 @@ const AllFoodsAdmin = () => {
                     _id: string;
                     name: string;
                     price: string;
+                    isAvailable: boolean;
                     image: string;
                   },
                   index: number
@@ -88,6 +109,15 @@ const AllFoodsAdmin = () => {
                     <TableCell className="text-center">{index + 1}</TableCell>
                     <TableCell className="text-center">{f.name}</TableCell>
                     <TableCell className="text-center">Rs. {f.price}</TableCell>
+                    <TableCell className="text-center">
+                      
+                      <Switch 
+                        onCheckedChange={() =>
+                          handleUpdateFoodAvailability(f._id, f.isAvailable)
+                        }
+                       checked={f.isAvailable}
+                      />
+                    </TableCell>
                     <TableCell className="text-center space-x-3">
                       <Dialog>
                         <DialogTrigger asChild>

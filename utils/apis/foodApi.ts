@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { axiosInstance } from "../interceptors/axiosInterceptor";
 import axios from "axios";
-import { IFoodForm } from "../interfaces/foodForm";
 
 const baseURL=process.env.NEXT_PUBLIC_URL;
 export const useAddFood = () => 
@@ -37,6 +36,16 @@ export const useUpdateFood = () =>
             return response.data;
         }
     });
+
+export const useUpdateFoodAvailability = () =>
+    useMutation({
+        mutationFn: async ({id,isAvailable}:{id:string,isAvailable:boolean}) => {
+            const response = await axiosInstance.patch(`/foods/${id}`,{
+                isAvailable
+            });
+            return response.data
+        }
+    })
 
 export const useDeleteFood = () =>
     useMutation({
