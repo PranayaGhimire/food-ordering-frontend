@@ -40,6 +40,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const path = usePathname();
   const { data: profile } = useGetProfile();
+  console.log(profile);
+  
   const first = profile?.data?.fullName.split(" ")[0];
   const shortFirst = profile?.data?.fullName.slice(0, 1).toUpperCase();
   const shortLast = profile?.data?.fullName

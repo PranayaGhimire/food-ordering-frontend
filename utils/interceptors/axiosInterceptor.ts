@@ -16,7 +16,7 @@ axiosInstance.interceptors.response.use(
     console.log(originalRequest)
     if (error?.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      await axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/refresh`);
+      await axiosInstance.post("/auth/refresh");
       return axios(originalRequest);
       // console.warn("Unauthorized! Redirecting to Auth page");
       // window.location.href="/auth"

@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { IRegisterForm } from "@/utils/interfaces/RegisterForm";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "./ui/spinner";
 const MyProfile = () => {
   const { mutate: updateProfile, isPending: isUpdateProfilePending } =
     useUpdateProfile();
@@ -154,7 +155,7 @@ const MyProfile = () => {
               disabled={isUpdateProfilePending}
               className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
             >
-              Update Profile
+              {isUpdateProfilePending ? <Spinner/> : 'Update Profile'}
             </Button>
           </form>
         )}
