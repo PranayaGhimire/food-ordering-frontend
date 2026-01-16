@@ -26,7 +26,7 @@ const CarouselComp = () => {
                   <Image
                     src={c.image}
                     alt="Restaurant Icon"
-                    className="w-full h-130 object-center"
+                    className="w-full h-130 object-center brightness-75"
                   />
                   <div className="absolute text-white text-2xl font-bold flex flex-col gap-2 items-center">
                         <p className="text-center">The Momo House</p>

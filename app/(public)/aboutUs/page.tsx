@@ -9,7 +9,7 @@ const AboutUs = () => {
         <Image
           alt="Pizza Image"
           src={pizza}
-          className="object-center w-full h-70"
+          className="object-center w-full h-70 brightness-75"
         />
         <div className="absolute top-24 left-5 md:left-20 space-y-3">
           <p className="text-3xl  text-white font-bold">About Us</p>

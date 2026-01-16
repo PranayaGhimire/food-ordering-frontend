@@ -12,7 +12,7 @@ const RecommendedFoods = () => {
               {foodItems.map((f) => (
                 <Card
                   key={f.name}
-                  className="w-full max-w-md shadow-md border-t-4 border-t-cyan-500"
+                  className="w-full max-w-md shadow-md border-t-4 border-t-cyan-500 hover:-translate-y-5 transition-all duration-400"
                 >
                   <CardHeader>
                     <CardTitle>{f.name}</CardTitle>

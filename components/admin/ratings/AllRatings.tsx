@@ -23,7 +23,7 @@ const AllRatings = () => {
   }
   return (
     <>
-        <Card>
+        <Card className="border-t-4 border-t-cyan-500 shadow-md">
             <Table>
                 <TableCaption>A list of ratings</TableCaption>
                 <TableHeader>

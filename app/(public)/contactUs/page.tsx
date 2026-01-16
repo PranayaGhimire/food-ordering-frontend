@@ -21,7 +21,7 @@ const ContactUs = () => {
         <Image
           alt="Chicken Chilly Image"
           src={chickenChilly}
-          className="w-full h-70"
+          className="w-full h-70 brightness-75"
         />
         <div className="absolute top-24 left-5 md:left-20 space-y-3">
           <p className="text-3xl text-white font-bold">Contact Us</p>

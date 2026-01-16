@@ -137,7 +137,7 @@ const Navbar = () => {
             </PopoverContent>
           </Popover>
         ) : (
-          <Button className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer">
+          <Button variant={`primary`}>
             <Link href={`/auth`} className="flex gap-2 items-center">
               Log In
               <LogIn />
