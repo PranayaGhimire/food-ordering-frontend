@@ -1,5 +1,9 @@
 import AllFoods from "@/components/foods/AllFoods";
+import { Metadata } from "next";
 
+export const metadata:Metadata = {
+  title:"Foods"
+}
 const Foods = () => {
   return (
     <div className="px-5 md:px-20 py-10 space-y-2">

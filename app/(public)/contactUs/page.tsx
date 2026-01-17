@@ -1,22 +1,24 @@
 import chickenChilly from "@/assets/chickenChilly.webp";
+import SendMessage from "@/components/contactUs/SendMessage";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { faqs } from "@/constants/faqs";
+import { Metadata } from "next";
 import Image from "next/image";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 import { IoCall } from "react-icons/io5";
+export const metadata:Metadata = {
+  title:"Contact Us"
+}
 const ContactUs = () => {
   return (
-    <div>
+    <>
       <div className="relative">
         <Image
           alt="Chicken Chilly Image"
@@ -53,12 +55,7 @@ const ContactUs = () => {
         <Card className="md:w-1/2 border-t-4 border-t-cyan-500 shadow-lg">
           <CardContent className="space-y-3">
             <p className="text-[18px] font-semibold">Send Us A Message</p>
-            <Input placeholder="Your Name" />
-            <Input placeholder="Your Email" />
-            <Textarea placeholder="Your Message" />
-            <Button variant={`primary`} className="w-full p-5">
-              Send Message
-            </Button>
+            <SendMessage/>
           </CardContent>
         </Card>
       </div>
@@ -96,7 +93,7 @@ const ContactUs = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   );
 };
 

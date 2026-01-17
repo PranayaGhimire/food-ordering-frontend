@@ -14,7 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Momo House - Best Momos in Town",
+  title: {
+    default:"The Momo House - Best Momos in Town",
+    template:"%s | The Momo House"
+  } ,
   description: "Order delicious momos from the comfort of your home. Fast delivery, authentic taste, and affordable prices.",
   keywords:['momos','food delivery','restaurant','dumplings','online food'],
   authors:[{name:"The Momo House"}],

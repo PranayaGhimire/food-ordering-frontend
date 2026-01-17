@@ -2,6 +2,11 @@ import Image from "next/image";
 import pizza from "@/assets/pizza.jpg";
 import { Card } from "@/components/ui/card";
 import momo from "@/assets/Momo.jpg";
+import { Metadata } from "next";
+
+export const metadata:Metadata = {
+  title:"About Us"
+}
 const AboutUs = () => {
   return (
     <div>
