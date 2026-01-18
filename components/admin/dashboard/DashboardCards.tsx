@@ -2,10 +2,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetFoods } from "@/utils/apis/foodApi";
+import { useGetMessages } from "@/utils/apis/messageApi";
 import { useFindOrders } from "@/utils/apis/orderApi";
 import { useGetRatings } from "@/utils/apis/ratingApi";
 import { useGetProfile, useGetUsers } from "@/utils/apis/userApi";
-import { Soup, Star, User, UtensilsCrossed } from "lucide-react";
+import { Send, Soup, Star, User, UtensilsCrossed } from "lucide-react";
 import Link from "next/link";
 const DashboardCards = () => {
   const {data:profile} = useGetProfile();
@@ -13,6 +14,7 @@ const DashboardCards = () => {
   const { data: foods, isLoading: isFoodsLoading } = useGetFoods();
   const { data: orders, isLoading: isOrdersLoading } = useFindOrders();
   const { data: ratings, isLoading: isRatingsLoading} = useGetRatings();
+  const {data: messages, isLoading:isMessagesLoading} = useGetMessages();
   const dashboardCards = [
     {
       title: "Users",
@@ -37,13 +39,20 @@ const DashboardCards = () => {
         length: ratings?.data?.length,
         icon: Star ,
         route: "/admin/ratings"
+    },
+    {
+        title:"Messages",
+        length: messages?.data?.length,
+        icon: Send,
+        route:"/admin/messages"
     }
   ];
   return (
     <>
       <p className="font-medium">Welcome, {profile?.data?.fullName}</p>
-      {isUsersLoading || isFoodsLoading || isOrdersLoading || isRatingsLoading ? (
+      {isUsersLoading || isFoodsLoading || isOrdersLoading || isRatingsLoading || isMessagesLoading ? (
         <div className="flex flex-col md:flex-row gap-5">
+          <Skeleton className="w-40 h-28 bg-gray-400 rounded-md" />
           <Skeleton className="w-40 h-28 bg-gray-400 rounded-md" />
           <Skeleton className="w-40 h-28 bg-gray-400 rounded-md" />
           <Skeleton className="w-40 h-28 bg-gray-400 rounded-md" />

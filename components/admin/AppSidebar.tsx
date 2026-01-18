@@ -4,6 +4,7 @@ import {
   Soup,
   User,
   UtensilsCrossed,
+  Send,
 } from "lucide-react";
 
 import Image from "next/image";
@@ -49,6 +50,11 @@ const items = [
     title:"Ratings",
     url:"/admin/ratings",
     icon: Star
+  },
+  {
+    title:"Messages",
+    url:"/admin/messages",
+    icon: Send
   }
 ];
 
