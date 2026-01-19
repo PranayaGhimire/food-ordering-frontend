@@ -8,6 +8,7 @@ export interface IRegisterForm {
     phoneNumber:string;
     email:string;
     password:string;
+    confirmPassword: string;
     role:UserRole,
     profileImageUrl?:string;
 }

@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { useAddFood } from "@/utils/apis/foodApi";
 import { IFoodForm } from "@/utils/interfaces/foodForm";
 import { useRouter } from "next/navigation";
@@ -17,6 +18,7 @@ const AddFoodForm = () => {
     formData.append("name", data.name);
     formData.append("price", data.price.toString());
     formData.append("file", data.file[0]);
+    formData.append("category",data.category);
     mutate(formData, {
       onSuccess: (response) => {
         toast.success(response.message);
@@ -43,10 +45,26 @@ const AddFoodForm = () => {
           />
         </div>
       </div>
-      <div className="space-y-2">
+      <div className="flex flex-col md:flex-row  gap-5">
+        {/* Category */}
+        <div className="md:w-1/2 space-y-2">
+          <Label>Category</Label>
+          <NativeSelect {...register('category')}>
+              <NativeSelectOption>Momo</NativeSelectOption>
+              <NativeSelectOption>Snacks</NativeSelectOption>
+              <NativeSelectOption>Tea</NativeSelectOption>
+              <NativeSelectOption>Coffee</NativeSelectOption>
+              <NativeSelectOption>Soft Drinks</NativeSelectOption>
+              <NativeSelectOption>Hard Drinks</NativeSelectOption>
+          </NativeSelect>
+        </div>
+        {/* Image */}
+        <div className="md:w-1/2 space-y-2">
           <Label>Image</Label>
-          <Input type="file" {...register("file")} className="w-50 py-1" />
+          <Input type="file" {...register("file")} className=" py-1" />
+        </div>
       </div>
+
       <Button disabled={isPending} variant={`primary`}>
         Add New Food
       </Button>

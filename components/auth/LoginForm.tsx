@@ -11,19 +11,22 @@ import { IoMdMail } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
 import { RotateLoader } from "react-spinners";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 const LoginForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const queryClient = useQueryClient();
   const router = useRouter();
   const { mutate, isPending } = useLogin();
-  const { register, handleSubmit } = useForm<ILoginForm>();
+  const { register, handleSubmit,formState:{errors} } = useForm<ILoginForm>();
   const onSubmit = (data: ILoginForm) => {
     mutate(data, {
-      onSuccess:  (response) => {
+      onSuccess: (response) => {
         toast.success(response.message);
-       queryClient.setQueryData(['user'],{
-        data:response.data
-       });
+        queryClient.setQueryData(["user"], {
+          data: response.data,
+        });
         router.push(response.data.role === "ADMIN" ? "/admin" : "/");
       },
       onError() {
@@ -36,22 +39,36 @@ const LoginForm = () => {
       <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
         <Input
-          {...register("email")}
+          {...register("email",{
+            required:"Email is required"
+          })}
           type="email"
           placeholder="Enter email"
           className="pl-8.5"
         />
         <IoMdMail className="text-xl absolute top-9.5 left-2 text-cyan-500" />
+        {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
       </div>
       <div className="relative grid gap-3">
         <Label htmlFor="password">Password</Label>
         <Input
-          {...register("password")}
-          type="password"
+          {...register("password",{
+            required:"Password is required"
+          })}
+          type={showPassword ? "text": "password"}
           placeholder="Enter password"
           className="pl-8"
         />
         <FaLock className="absolute top-10 left-2 text-cyan-500" />
+        <Button
+          onClick={() => setShowPassword(!showPassword)}
+          type="button"
+          variant={`primary`}
+          className="absolute top-9 right-2 h-6 w-6 "
+        >
+          {showPassword ? <EyeOff /> : <Eye />}
+        </Button>
+        {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
       </div>
       <Button
         disabled={isPending}

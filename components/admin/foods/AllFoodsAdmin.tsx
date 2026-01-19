@@ -90,6 +90,7 @@ const AllFoodsAdmin = () => {
                 <TableHead className="text-center">Name</TableHead>
                 <TableHead className="text-center">Price</TableHead>
                 <TableHead className="text-center">Availability</TableHead>
+                <TableHead className="text-center">Category</TableHead>
                 <TableHead className="text-center">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -102,6 +103,7 @@ const AllFoodsAdmin = () => {
                     price: string;
                     isAvailable: boolean;
                     image: string;
+                    category: string;
                   },
                   index: number
                 ) => (
@@ -117,6 +119,9 @@ const AllFoodsAdmin = () => {
                         }
                        checked={f.isAvailable}
                       />
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {f.category}
                     </TableCell>
                     <TableCell className="text-center space-x-3">
                       <Dialog>
