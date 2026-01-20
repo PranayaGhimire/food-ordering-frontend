@@ -5,6 +5,7 @@ import {
   User,
   UtensilsCrossed,
   Send,
+  Newspaper,
 } from "lucide-react";
 
 import Image from "next/image";
@@ -55,6 +56,11 @@ const items = [
     title:"Messages",
     url:"/admin/messages",
     icon: Send
+  },
+  {
+    title:"Subscribers",
+    url:"/admin/subscribers",
+    icon: Newspaper
   }
 ];
 

@@ -56,8 +56,8 @@ const Navbar = () => {
           <p>EMAIL: rest@themomohouse.com</p>
           <p>PHONE: 9840505684; Pranaya Ghimire, Manager</p>
         </div>
-        <Button className="w-28 h-full rounded-none bg-stone-800 hover:bg-stone-900 cursor-pointer">
-          <Link href={`/foods`}>Order Now</Link> <FaLongArrowAltRight />
+        <Button className="group w-28 h-full rounded-none bg-stone-800 hover:bg-stone-900 cursor-pointer">
+          <Link href={`/foods`}>Order Now</Link> <FaLongArrowAltRight className="group-hover:translate-x-2 transition-transform duration-400" />
         </Button>
       </div>
       <div className="flex justify-between items-center h-28 px-5 md:px-20 bg-white">

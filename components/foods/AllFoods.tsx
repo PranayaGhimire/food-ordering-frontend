@@ -47,6 +47,7 @@ const AllFoods = () => {
   // States
   const [searchValue, setSearchValue] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const [priceFilter, setPriceFilter] = useState("All");
   const router = useRouter();
   const { data: profile } = useGetProfile();
   const { data: foods, isLoading } = useGetFoods();
@@ -67,33 +68,44 @@ const AllFoods = () => {
   };
   return (
     <div className="space-y-4">
-      {/* Search */}
-      <div className="relative">
-        <Input
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          type="search"
-          placeholder="Search food.."
-          className="bg-white md:w-1/2 pl-8"
-        />
-        <Search className="absolute top-3 left-2 text-cyan-500" size={20} />
-      </div>
-      {/* Filters */}
-      <div className="w-fit space-y-2">
-        <p className="text-[18px] font-medium">Filters</p>
-        <NativeSelect
-          className="bg-white"
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-        >
-          <NativeSelectOption>All</NativeSelectOption>
-          <NativeSelectOption>Momo</NativeSelectOption>
-          <NativeSelectOption>Snacks</NativeSelectOption>
-          <NativeSelectOption>Tea</NativeSelectOption>
-          <NativeSelectOption>Coffee</NativeSelectOption>
-          <NativeSelectOption>Soft Drinks</NativeSelectOption>
-          <NativeSelectOption>Hard Drinks</NativeSelectOption>
-        </NativeSelect>
+      <div className="w-full flex flex-col md:flex-row gap-2 justify-between">
+        {/* Search */}
+        <div className="md:w-1/2 relative">
+          <Input
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            type="search"
+            placeholder="Search food.."
+            className="bg-white pl-8"
+          />
+          <Search className="absolute top-3 left-2 text-cyan-500" size={20} />
+        </div>
+        {/* Filters */}
+        <div className="w-fit flex gap-3 space-y-2">
+          <NativeSelect
+            className="bg-white"
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <NativeSelectOption>All</NativeSelectOption>
+            <NativeSelectOption>Momo</NativeSelectOption>
+            <NativeSelectOption>Snacks</NativeSelectOption>
+            <NativeSelectOption>Tea</NativeSelectOption>
+            <NativeSelectOption>Coffee</NativeSelectOption>
+            <NativeSelectOption>Soft Drinks</NativeSelectOption>
+            <NativeSelectOption>Hard Drinks</NativeSelectOption>
+          </NativeSelect>
+          <NativeSelect
+            className="bg-white"
+            value={priceFilter}
+            onChange={(e) => setPriceFilter(e.target.value)}
+          >
+            {/* <NativeSelectOption>All</NativeSelectOption> */}
+            <NativeSelectOption>Highest</NativeSelectOption>
+            <NativeSelectOption>Medium</NativeSelectOption>
+            <NativeSelectOption>Lowest</NativeSelectOption>
+          </NativeSelect>
+        </div>
       </div>
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />
@@ -112,10 +124,11 @@ const AllFoods = () => {
             </TableHeader>
             <TableBody>
               {foods?.data
-                ?.filter((f: { name: string,category: string }) =>
+                ?.filter((f: { name: string; category: string }) =>
                   searchValue
                     ? f.name.toLowerCase().includes(searchValue.toLowerCase())
-                     :categoryFilter!=="All"? f.category === categoryFilter 
+                    : categoryFilter !== "All"
+                      ? f.category === categoryFilter
                       : true,
                 )
                 ?.map(

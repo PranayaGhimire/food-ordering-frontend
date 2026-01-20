@@ -5,6 +5,7 @@ import { useGetFoods } from "@/utils/apis/foodApi";
 import { useGetMessages } from "@/utils/apis/messageApi";
 import { useFindOrders } from "@/utils/apis/orderApi";
 import { useGetRatings } from "@/utils/apis/ratingApi";
+import { useGetSubscribers } from "@/utils/apis/subscriberApi";
 import { useGetProfile, useGetUsers } from "@/utils/apis/userApi";
 import { Send, Soup, Star, User, UtensilsCrossed } from "lucide-react";
 import Link from "next/link";
@@ -15,6 +16,7 @@ const DashboardCards = () => {
   const { data: orders, isLoading: isOrdersLoading } = useFindOrders();
   const { data: ratings, isLoading: isRatingsLoading} = useGetRatings();
   const {data: messages, isLoading:isMessagesLoading} = useGetMessages();
+  const {data: subscribers, isLoading: isSubscribersLoading} = useGetSubscribers();
   const dashboardCards = [
     {
       title: "Users",
@@ -45,7 +47,7 @@ const DashboardCards = () => {
         length: messages?.data?.length,
         icon: Send,
         route:"/admin/messages"
-    }
+    },
   ];
   return (
     <>

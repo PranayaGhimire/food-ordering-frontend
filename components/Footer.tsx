@@ -1,10 +1,9 @@
 import { navLinks } from "@/constants/navLinks";
 import Link from "next/link";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import { FaFacebook, FaInstagram, FaLinkedin, FaLocationDot } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 import { IoCall } from "react-icons/io5";
+import AddSubscriber from "./AddSubscriber";
 
 const Footer = () => {
   return (
@@ -27,15 +26,7 @@ const Footer = () => {
             <p className="font-semibold text-[18px]">Newsletter</p>
             <div className="grid gap-2">
               <p>Subscribe to get our latest updates</p>
-              <div className="flex gap-2">
-                <Input
-                  placeholder="Your email"
-                  className="bg-gray-700 border-0 placeholder:text-gray-200"
-                />
-                <Button className="bg-cyan-500 hover:bg-cyan-700 cursor-pointer">
-                  Subscribe
-                </Button>
-              </div>
+              <AddSubscriber/>
             </div>
           </div>
           {/* Contact Info */}
