@@ -5,6 +5,7 @@ import { ILoginForm } from "../interfaces/LoginForm";
 import { axiosInstance } from "../interceptors/axiosInterceptor";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { IResetPassword } from "../interfaces/resetPasswordInterface";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL;
 export const useRegister = () => 
@@ -39,3 +40,19 @@ export const useLogout = () => {
         onError: () => toast.error("Oops! Something Went Wrong")
     })
 }
+
+export const useForgotPassword = () =>
+    useMutation({
+        mutationFn: async (email:string) => {
+            const response = await axios.post(`${baseUrl}/auth/forgotPassword`,{ email });
+            return response.data;
+        }
+    });
+
+export const useResetPassword = () =>
+    useMutation({
+        mutationFn: async (data:IResetPassword) => {
+            const response = await axios.post(`${baseUrl}/auth/resetPassword`,data);
+            return response.data;
+        }
+    })

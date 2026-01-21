@@ -16,7 +16,7 @@ export const metadata:Metadata = {
 const Auth = () => {
   return (
     <div className="flex justify-center my-10">
-      <Tabs defaultValue="Sign Up" className="w-[90%] md:w-100">
+      <Tabs defaultValue="Log In" className="w-[90%] md:w-100">
         <TabsList>
           <TabsTrigger value="Sign Up">Sign Up</TabsTrigger>
           <TabsTrigger value="Log In">Log In</TabsTrigger>

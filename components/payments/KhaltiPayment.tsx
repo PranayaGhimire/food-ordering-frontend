@@ -69,7 +69,7 @@ const KhaltiPayment = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
 
           <div className="flex gap-2" onMouseLeave={() => setHoveredRating(0)}>
-            {Array.from({ length: 5 }).map((_, index) => {
+            {Array.from({ length: 10 }).map((_, index) => {
               const starValue = index+1;
               const isActive = starValue<= (hoveredRating || ratingValue!); 
               return <FaStar
