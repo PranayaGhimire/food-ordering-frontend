@@ -11,7 +11,7 @@ export const useAddFood = () =>
         }
     })
 
-export const useGetFoods = (page:number) => 
+export const useGetFoods = (page:number =1) => 
     useQuery({
         queryKey: ['foods',page],
         queryFn: async () => {
