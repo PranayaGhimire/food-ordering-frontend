@@ -40,7 +40,7 @@ const LoginForm = () => {
     });
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3">
       <div className="relative grid gap-3">
         <Label htmlFor="email">Email</Label>
         <Input
@@ -57,13 +57,7 @@ const LoginForm = () => {
         )}
       </div>
       <div className="relative grid gap-3">
-        <div className="flex justify-between">
-          <Label htmlFor="password">Password</Label>
-          {/* forgot password */}
-          <Link href={`/auth/forgotPassword`} className="text-sm">
-            Forgot Password ?
-          </Link>
-        </div>
+        <Label htmlFor="password">Password</Label>
         <div className="relative">
           <Input
             {...register("password", {
@@ -88,7 +82,18 @@ const LoginForm = () => {
           <p className="text-sm text-red-500">{errors.password.message}</p>
         )}
       </div>
-
+      <div className="flex items-center justify-between">
+        {/* Remember Me */}
+        <Label>
+          {" "}
+          <Input {...register('rememberMe')} type="checkbox" className="w-3" />
+          Remember me
+        </Label>
+        {/* forgot password */}
+        <Link href={`/auth/forgotPassword`} className="text-sm font-medium">
+          Forgot Password ?
+        </Link>
+      </div>
       <Button
         disabled={isPending}
         className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"

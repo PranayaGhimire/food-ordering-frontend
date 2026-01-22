@@ -42,15 +42,25 @@ import { Switch } from "../ui/switch";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { NativeSelect, NativeSelectOption } from "../ui/native-select";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "../ui/pagination";
 
 const AllFoods = () => {
   // States
   const [searchValue, setSearchValue] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [priceFilter, setPriceFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const { data: profile } = useGetProfile();
-  const { data: foods, isLoading } = useGetFoods();
+  const { data: foods, isLoading } = useGetFoods(currentPage);
   const { mutate: createOrder } = useCreateOrder();
   const queryClient = useQueryClient();
   const onOrder = (id: string, isAvailable: boolean, name: string) => {
@@ -107,6 +117,27 @@ const AllFoods = () => {
           </NativeSelect>
         </div>
       </div>
+      {/* <div className="flex-wrap">
+        {foods?.data?.map((food:{_id:string;name:string;price:string;image:string;isAvailable:boolean}) => 
+          <Card key={food._id} className="max-w-sm">
+              <CardHeader>
+                  <CardTitle>{food.name}</CardTitle>
+                  <CardDescription>Rs. {food.price}</CardDescription>
+                  <CardAction className="">
+                    <Button variant={`primary`}><UtensilsCrossed/> Order</Button>
+                  </CardAction>
+              </CardHeader>
+              <CardContent className="">
+                <div className=" relative w-60 h-60 rounded-md overflow-hidden">
+                     <Image src={food.image} alt={food.name} fill className="object-cover"/>
+                </div>
+              </CardContent>
+              <CardFooter>
+                  {food.isAvailable ? "Available" :"Not available"}
+              </CardFooter>
+          </Card>
+        )}
+      </div> */}
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />
       ) : (
@@ -214,6 +245,38 @@ const AllFoods = () => {
                 )}
             </TableBody>
           </Table>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  className="cursor-pointer"
+                  onClick={() =>
+                    currentPage >1 &&
+                    setCurrentPage(
+                      (prev) => (prev - 1),
+                    )
+                  }
+                />
+              </PaginationItem>
+              {Array.from({ length: foods?.totalPages }).map((_, index) => (
+                <PaginationItem key={index}>
+                  <PaginationLink
+                    className={`${index + 1 === currentPage && "bg-cyan-500 text-white hover:text-cyan-500 hover:bg-white hover:border-2 hover:border-cyan-500 transition-all duration-400 ease-in-out"} cursor-pointer`}
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext className="cursor-pointer" 
+                onClick={() => currentPage < foods?.totalPages && setCurrentPage(prev => prev+1)} />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </Card>
       )}
     </div>

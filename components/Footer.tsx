@@ -53,9 +53,9 @@ const Footer = () => {
           <div className="flex flex-col gap-5">
             <p className="font-semibold text-[18px]">Follow Us</p>
             <div className="flex gap-3">
-              <FaFacebook />
-              <FaInstagram />
-              <FaLinkedin />
+              <Link href={`https://www.facebook.com/pranaya.ghimire.9/`}><FaFacebook /></Link>
+              <Link href={`https://www.instagram.com/pranaya_ghimire/`}><FaInstagram className="" /></Link>
+              <Link href={`https://www.linkedin.com/in/pranaya-ghimire-8774a7253/`}><FaLinkedin /></Link>
             </div>
           </div>
         </div>

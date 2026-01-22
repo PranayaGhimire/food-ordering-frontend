@@ -11,11 +11,11 @@ export const useAddFood = () =>
         }
     })
 
-export const useGetFoods = () => 
+export const useGetFoods = (page:number) => 
     useQuery({
-        queryKey: ['foods'],
+        queryKey: ['foods',page],
         queryFn: async () => {
-            const response = await axios.get(`${baseURL}/foods`);
+            const response = await axios.get(`${baseURL}/foods?page=${page}`);
             return response.data;
         }
     });
