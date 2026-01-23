@@ -11,7 +11,7 @@ export const useAddFood = () =>
         }
     })
 
-export const useGetFoods = (page:number =1,search:string) => 
+export const useGetFoods = (page:number =1,search?:string) => 
     useQuery({
         queryKey: ['foods',page,search],
         queryFn: async () => {
