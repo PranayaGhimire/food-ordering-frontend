@@ -38,7 +38,7 @@ const Testimonials = () => {
               />
             </CardContent>
             <CardFooter className="flex gap-2">
-              {Array.from({ length: 10 }).map((_, item) => (
+              {Array.from({ length: 5 }).map((_, item) => (
                 <div key={item}>
                   <FaStar
                     className={`${item < t.rating && "text-yellow-400"} text-gray-400`}

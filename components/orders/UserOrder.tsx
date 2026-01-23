@@ -7,6 +7,7 @@ import { useInitiateKhalti } from "@/utils/apis/paymentApi";
 import { useGetProfile } from "@/utils/apis/userApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { RefreshCcw, UtensilsCrossed, Wallet } from "lucide-react";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -42,11 +43,14 @@ const UserOrder = () => {
     });
   };
   return (
-    <div className="px-5 md:px-20 py-10 space-y-2">
-      <h1 className="text-[18px] font-medium">
+    <div className="flex flex-col items-center text-center px-5 md:px-20 py-10 space-y-3">
+      <h1 className="text-xl font-medium">
         Your order for {food?.data?.name} has been received.
       </h1>
-      <h2>Plz wait for some time</h2>
+      <div className=" relative w-60 h-60 rounded-full overflow-hidden">
+        {food?.data?.image && <Image src={food?.data?.image} alt={food?.data?.name} fill className="object-cover"/>}
+      </div>
+      <h2 className="text-[18px]">Plz wait for some time .......</h2>
       <h3>Pay Now Button will be displayed on your screen</h3>
       <h4>Refresh the page if it doesn&apos;t appear</h4>
       {order?.data?.status === "ACCEPTED" ? (

@@ -56,11 +56,11 @@ const AllFoods = () => {
   // States
   const [searchValue, setSearchValue] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
-  const [priceFilter, setPriceFilter] = useState("All");
+  const [priceFilter, setPriceFilter] = useState("Default");
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const { data: profile } = useGetProfile();
-  const { data: foods, isLoading } = useGetFoods(currentPage, searchValue);
+  const { data: foods, isLoading } = useGetFoods(currentPage, searchValue,categoryFilter,priceFilter);
   const {data:searchFood} = useSearchFood(searchValue);
   console.log(searchFood);
   const { mutate: createOrder } = useCreateOrder();
@@ -113,8 +113,8 @@ const AllFoods = () => {
             onChange={(e) => setPriceFilter(e.target.value)}
           >
             {/* <NativeSelectOption>All</NativeSelectOption> */}
+            <NativeSelectOption>Default</NativeSelectOption>
             <NativeSelectOption>Highest</NativeSelectOption>
-            <NativeSelectOption>Medium</NativeSelectOption>
             <NativeSelectOption>Lowest</NativeSelectOption>
           </NativeSelect>
         </div>
@@ -157,11 +157,6 @@ const AllFoods = () => {
             </TableHeader>
             <TableBody>
               {foods?.data
-                ?.filter((f: { name: string; category: string }) =>
-                  categoryFilter !== "All"
-                      ? f.category === categoryFilter
-                      : true,
-                )
                 ?.map(
                   (
                     f: {

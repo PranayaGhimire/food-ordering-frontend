@@ -68,7 +68,7 @@ const Navbar = () => {
           className="rounded-full w-20 h-20"
         />
         {profile && <p className="font-medium">Welcome, {first}</p>}
-        <ul className="md:flex gap-8 hidden">
+        <ul className="lg:flex gap-8 hidden">
           {navLinks.map((navLink) => (
             <li
               key={navLink.name}
@@ -161,16 +161,17 @@ const Navbar = () => {
             </div>
           )}
         </Button>
+        {/* Mobile Menu */}
         <Sheet>
-          <SheetTrigger asChild>
+          <SheetTrigger asChild suppressHydrationWarning>
             <Button className="bg-cyan-500 md:hidden">
               <GiHamburgerMenu />
             </Button>
           </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle>The Momo House</SheetTitle>
-              <SheetDescription>
+          <SheetContent className="[&>button]:text-white">
+            <SheetHeader className="bg-cyan-600">
+              <SheetTitle className="text-white">The Momo House</SheetTitle>
+              <SheetDescription className="text-white">
                 We Provide online delivery of foods and our special here is
                 momos and its types.
               </SheetDescription>

@@ -7,7 +7,7 @@ import {
   useUpdateFoodAvailability,
 } from "@/utils/apis/foodApi";
 import { useQueryClient } from "@tanstack/react-query";
-import { CirclePlus, Edit, Eye, Trash } from "lucide-react";
+import { CirclePlus, Edit, Eye, Search, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -41,25 +41,34 @@ import {
   DialogTrigger,
 } from "../../ui/dialog";
 import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 const AllFoodsAdmin = () => {
-  const { data: foods, isLoading } = useGetFoods();
+  // States
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
+  const { data: foods, isLoading } = useGetFoods(currentPage, searchValue);
   console.log(foods);
 
   const { mutate: deleteFood } = useDeleteFood();
   const { mutate: updateFoodAvailability } = useUpdateFoodAvailability();
   const queryClient = useQueryClient();
   const handleUpdateFoodAvailability = (id: string, current: boolean) => {
-    updateFoodAvailability({
-      id,
-      isAvailable:!current
-    },{
-      onSuccess: (response) => {
-        toast.success(response.message);
-        queryClient.invalidateQueries({queryKey:['foods']});
+    updateFoodAvailability(
+      {
+        id,
+        isAvailable: !current,
       },
-      onError: () => toast.error('Oops! Something Went Wrong')
-    });
+      {
+        onSuccess: (response) => {
+          toast.success(response.message);
+          queryClient.invalidateQueries({ queryKey: ["foods"] });
+        },
+        onError: () => toast.error("Oops! Something Went Wrong"),
+      },
+    );
   };
   const handleDeleteFood = (id: string) => {
     deleteFood(id, {
@@ -78,6 +87,19 @@ const AllFoodsAdmin = () => {
           Add Food
         </Link>
       </Button>
+      <div className="md:w-1/2 relative ">
+        <Input
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          type="search"
+          placeholder="Search food.."
+          className="pl-8"
+        />
+        <Search
+          className="absolute top-1/2 transform -translate-y-1/2 left-2"
+          size={16}
+        />
+      </div>
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />
       ) : (
@@ -105,24 +127,21 @@ const AllFoodsAdmin = () => {
                     image: string;
                     category: string;
                   },
-                  index: number
+                  index: number,
                 ) => (
                   <TableRow key={f._id}>
                     <TableCell className="text-center">{index + 1}</TableCell>
                     <TableCell className="text-center">{f.name}</TableCell>
                     <TableCell className="text-center">Rs. {f.price}</TableCell>
                     <TableCell className="text-center">
-                      
-                      <Switch 
+                      <Switch
                         onCheckedChange={() =>
                           handleUpdateFoodAvailability(f._id, f.isAvailable)
                         }
-                       checked={f.isAvailable}
+                        checked={f.isAvailable}
                       />
                     </TableCell>
-                    <TableCell className="text-center">
-                      {f.category}
-                    </TableCell>
+                    <TableCell className="text-center">{f.category}</TableCell>
                     <TableCell className="text-center space-x-3">
                       <Dialog>
                         <DialogTrigger asChild>
@@ -186,10 +205,44 @@ const AllFoodsAdmin = () => {
                       </AlertDialog>
                     </TableCell>
                   </TableRow>
-                )
+                ),
               )}
             </TableBody>
           </Table>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  className="cursor-pointer"
+                  onClick={() =>
+                    currentPage > 1 && setCurrentPage((prev) => prev - 1)
+                  }
+                />
+              </PaginationItem>
+              {Array.from({ length: foods?.totalPages }).map((_, index) => (
+                <PaginationItem key={index}>
+                  <PaginationLink
+                    className={`${index + 1 === currentPage && "bg-cyan-500 text-white hover:text-cyan-500 hover:bg-white hover:border-2 hover:border-cyan-500 transition-all duration-400 ease-in-out"} cursor-pointer`}
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  className="cursor-pointer"
+                  onClick={() =>
+                    currentPage < foods?.totalPages &&
+                    setCurrentPage((prev) => prev + 1)
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </Card>
       )}
     </div>
