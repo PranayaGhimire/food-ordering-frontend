@@ -11,11 +11,11 @@ export const useAddFood = () =>
         }
     })
 
-export const useGetFoods = (page:number =1) => 
+export const useGetFoods = (page:number =1,search:string) => 
     useQuery({
-        queryKey: ['foods',page],
+        queryKey: ['foods',page,search],
         queryFn: async () => {
-            const response = await axios.get(`${baseURL}/foods?page=${page}`);
+            const response = await axios.get(`${baseURL}/foods?page=${page}&search=${search}`);
             return response.data;
         }
     });
@@ -28,6 +28,15 @@ export const useGetFood = (id:string | null) =>
             return response.data;
         }
     });
+
+export const useSearchFood = (search: string) =>
+    useQuery({
+        queryKey:['foods',search],
+        queryFn: async () => {
+            const response = await axios.get(`${baseURL}/foods/search?food=${search}`);
+            return response.data;
+        }
+    })
 
 export const useUpdateFood = () =>
     useMutation({

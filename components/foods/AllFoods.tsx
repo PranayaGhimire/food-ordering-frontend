@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useGetFoods } from "@/utils/apis/foodApi";
+import { useGetFoods, useSearchFood } from "@/utils/apis/foodApi";
 import { Eye, Search, UtensilsCrossed } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -60,7 +60,9 @@ const AllFoods = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const { data: profile } = useGetProfile();
-  const { data: foods, isLoading } = useGetFoods(currentPage);
+  const { data: foods, isLoading } = useGetFoods(currentPage, searchValue);
+  const {data:searchFood} = useSearchFood(searchValue);
+  console.log(searchFood);
   const { mutate: createOrder } = useCreateOrder();
   const queryClient = useQueryClient();
   const onOrder = (id: string, isAvailable: boolean, name: string) => {
@@ -156,9 +158,7 @@ const AllFoods = () => {
             <TableBody>
               {foods?.data
                 ?.filter((f: { name: string; category: string }) =>
-                  searchValue
-                    ? f.name.toLowerCase().includes(searchValue.toLowerCase())
-                    : categoryFilter !== "All"
+                  categoryFilter !== "All"
                       ? f.category === categoryFilter
                       : true,
                 )

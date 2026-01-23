@@ -1,28 +1,80 @@
 import axios from "axios";
 
+// Main axios instance for API calls
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_URL,
   withCredentials: true,
 });
 
-// ✅ Attach access token
+// Separate instance for refresh token requests (to avoid interceptor loop)
+const refreshAxios = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_URL,
+  withCredentials: true,
+});
+
+// Flag to prevent multiple refresh attempts simultaneously
+// let isRefreshing = false;
+// let failedQueue: Array<{
+//   resolve: (value?: unknown) => void;
+//   reject: (reason?: unknown) => void;
+// }> = [];
+
+// const processQueue = (error: unknown | null) => {
+//   failedQueue.forEach((prom) => {
+//     if (error) {
+//       prom.reject(error);
+//     } else {
+//       prom.resolve();
+//     }
+//   });
+//   failedQueue = [];
+// };
+
+// Request interceptor (if you need to attach tokens from headers)
 axiosInstance.interceptors.request.use(
-  config =>  config,
-  (error) => Promise.reject(error),
+  (config) => config,
+  (error) => Promise.reject(error)
 );
 
-// ✅ Response interceptor
+// Response interceptor
 axiosInstance.interceptors.response.use(
   (response) => response,
-  async function (error) {
-        const originalRequest = error.config;
-        if (error.response && error.response.status === 403 && !originalRequest._retry) {
-            originalRequest._retry = true;
-               await axiosInstance.post(`/auth/refresh`, {
-                    withCredentials: true // This attaches cookies (e.g., refresh token) to the request
-                });
-                return axiosInstance(originalRequest);
-        }
-        return Promise.reject(error);
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Skip refresh logic for the refresh endpoint itself
+    if (originalRequest.url?.includes("/auth/refresh")) {
+      return Promise.reject(error);
     }
-);   
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      // if (isRefreshing) {
+      //   // If already refreshing, queue this request
+      //   return new Promise((resolve, reject) => {
+      //     failedQueue.push({ resolve, reject });
+      //   })
+      //     .then(() => axiosInstance(originalRequest))
+      //     .catch((err) => Promise.reject(err));
+      // }
+
+      originalRequest._retry = true;
+      // isRefreshing = true;
+
+      try {
+        // Use separate axios instance for refresh to avoid interceptor loop
+        await refreshAxios.post("/auth/refresh");
+        // processQueue(null);
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        // processQueue(refreshError);
+        // Optionally redirect to login or clear auth state here
+        console.error("Token refresh failed:", refreshError);
+        return Promise.reject(refreshError);
+      } // finally {
+      //   isRefreshing = false;
+      // }
+    }
+
+    return Promise.reject(error);
+  }
+);
