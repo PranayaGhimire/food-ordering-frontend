@@ -31,7 +31,7 @@ export const useCreateOrder = () =>
 export const useUpdateOrder = () =>
     useMutation({
         mutationFn: async (data:IUpdateOrder) => {
-            const response = await axiosInstance.put(`/orders/${data.id}`,data);
+            const response = await axiosInstance.put(`/orders`,data);
             return response.data;
         }
     })

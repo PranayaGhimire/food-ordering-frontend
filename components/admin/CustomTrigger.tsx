@@ -12,7 +12,7 @@ export function CustomTrigger() {
       onClick={toggleSidebar}
       className={` w-8 rounded-full`}
     >
-      {open && !isMobile ? <ArrowRight /> : isMobile ? <Menu /> : <ArrowLeft />}
+      {open && !isMobile ? <ArrowLeft /> : isMobile ? <Menu /> : <ArrowRight />}
     </Button>
   );
 }

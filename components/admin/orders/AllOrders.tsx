@@ -33,7 +33,7 @@ const AllOrders = () => {
   console.log(orders);
   const { mutate } = useUpdateOrder();
   const handleUpdateOrder = (id: string, status: string) => {
-    const data = { id, status };
+    const data = {id, status };
     mutate(data, {
       onSuccess: (response) => {
         queryClient.invalidateQueries({ queryKey: ["orders"] });

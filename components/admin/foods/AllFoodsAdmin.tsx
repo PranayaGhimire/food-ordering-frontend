@@ -43,13 +43,32 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 
 const AllFoodsAdmin = () => {
   // States
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
-  const { data: foods, isLoading } = useGetFoods(currentPage, searchValue);
+  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [priceFilter, setPriceFilter] = useState("Default");
+  const { data: foods, isLoading } = useGetFoods(
+    currentPage,
+    searchValue,
+    categoryFilter,
+    priceFilter,
+  );
   console.log(foods);
 
   const { mutate: deleteFood } = useDeleteFood();
@@ -87,18 +106,45 @@ const AllFoodsAdmin = () => {
           Add Food
         </Link>
       </Button>
-      <div className="md:w-1/2 relative ">
-        <Input
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          type="search"
-          placeholder="Search food.."
-          className="pl-8"
-        />
-        <Search
-          className="absolute top-1/2 transform -translate-y-1/2 left-2"
-          size={16}
-        />
+
+      <div className="w-full flex flex-col md:flex-row gap-2 justify-between">
+        {/* Search */}
+        <div className="md:w-1/2 relative">
+          <Input
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            type="search"
+            placeholder="Search food.."
+            className="bg-white pl-8"
+          />
+          <Search className="absolute top-3 left-2 text-cyan-500" size={20} />
+        </div>
+        {/* Filters */}
+        <div className="w-fit flex gap-3 space-y-2">
+          <NativeSelect
+            className="bg-white"
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <NativeSelectOption>All</NativeSelectOption>
+            <NativeSelectOption>Momo</NativeSelectOption>
+            <NativeSelectOption>Snacks</NativeSelectOption>
+            <NativeSelectOption>Tea</NativeSelectOption>
+            <NativeSelectOption>Coffee</NativeSelectOption>
+            <NativeSelectOption>Soft Drinks</NativeSelectOption>
+            <NativeSelectOption>Hard Drinks</NativeSelectOption>
+          </NativeSelect>
+          <NativeSelect
+            className="bg-white"
+            value={priceFilter}
+            onChange={(e) => setPriceFilter(e.target.value)}
+          >
+            {/* <NativeSelectOption>All</NativeSelectOption> */}
+            <NativeSelectOption>Default</NativeSelectOption>
+            <NativeSelectOption>Highest</NativeSelectOption>
+            <NativeSelectOption>Lowest</NativeSelectOption>
+          </NativeSelect>
+        </div>
       </div>
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />
