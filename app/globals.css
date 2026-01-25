@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Tell Tailwind where your components/pages are located */
+@source "../app";
+@source "../components";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
