@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useGetFoods, useSearchFood } from "@/utils/apis/foodApi";
+import { useGetFoods } from "@/utils/apis/foodApi";
 import { Eye, Search, UtensilsCrossed } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -40,7 +40,7 @@ import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { Switch } from "../ui/switch";
 import { Input } from "../ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NativeSelect, NativeSelectOption } from "../ui/native-select";
 import {
   Pagination,
@@ -55,14 +55,13 @@ import {
 const AllFoods = () => {
   // States
   const [searchValue, setSearchValue] = useState("");
+  const [debounced,setDebounced] = useState(searchValue);
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [priceFilter, setPriceFilter] = useState("Default");
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const { data: profile } = useGetProfile();
-  const { data: foods, isLoading } = useGetFoods(currentPage, searchValue,categoryFilter,priceFilter);
-  const {data:searchFood} = useSearchFood(searchValue);
-  console.log(searchFood);
+  const { data: foods, isLoading } = useGetFoods(currentPage, debounced,categoryFilter,priceFilter);
   const { mutate: createOrder } = useCreateOrder();
   const queryClient = useQueryClient();
   const onOrder = (id: string, isAvailable: boolean, name: string) => {
@@ -78,6 +77,10 @@ const AllFoods = () => {
       });
     else toast.error(`Sorry ${name} is not available at this moment`);
   };
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(searchValue),400);
+    return () => clearTimeout(timer);
+  },[searchValue]);
   return (
     <div className="space-y-4">
       <div className="w-full flex flex-col md:flex-row gap-2 justify-between">

@@ -67,7 +67,7 @@ const KhaltiPayment = () => {
           <h4>Refresh the page if rating window doesn&apos;t appear</h4>
       {order?.data?.paymentStatus === "PAID" ? (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-
+          <p className="font-medium text-[18px]">Add your review</p>
           <div className="flex gap-2" onMouseLeave={() => setHoveredRating(0)}>
             {Array.from({ length: 5 }).map((_, index) => {
               const starValue = index+1;

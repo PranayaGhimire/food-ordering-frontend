@@ -41,7 +41,7 @@ const AllRatings = () => {
                         <TableRow key={rating._id}>
                             <TableCell className="text-center">{index+1}</TableCell>
                             <TableCell className="text-center">{rating?.user?.fullName}</TableCell>
-                            <TableCell className="text-center">{rating?.order.food}</TableCell>
+                            <TableCell className="text-center">{rating?.order?.food}</TableCell>
                             <TableCell className="text-center">{rating.rating}</TableCell>
                             <TableCell className="text-center">{rating?.comment}</TableCell>
                             <TableCell className="text-center">

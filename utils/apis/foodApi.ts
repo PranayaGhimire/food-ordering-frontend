@@ -36,17 +36,6 @@ export const useGetFood = (id: string | null) =>
     },
   });
 
-export const useSearchFood = (search: string) =>
-  useQuery({
-    queryKey: ["foods", search],
-    queryFn: async () => {
-      const response = await axios.get(
-        `${baseURL}/foods/search?food=${search}`,
-      );
-      return response.data;
-    },
-  });
-
 export const useUpdateFood = () =>
   useMutation({
     mutationFn: async ({ id, data }: { id: string; data: FormData }) => {

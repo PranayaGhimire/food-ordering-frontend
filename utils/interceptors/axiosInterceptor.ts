@@ -12,28 +12,10 @@ const refreshAxios = axios.create({
   withCredentials: true,
 });
 
-// Flag to prevent multiple refresh attempts simultaneously
-// let isRefreshing = false;
-// let failedQueue: Array<{
-//   resolve: (value?: unknown) => void;
-//   reject: (reason?: unknown) => void;
-// }> = [];
-
-// const processQueue = (error: unknown | null) => {
-//   failedQueue.forEach((prom) => {
-//     if (error) {
-//       prom.reject(error);
-//     } else {
-//       prom.resolve();
-//     }
-//   });
-//   failedQueue = [];
-// };
-
 // Request interceptor (if you need to attach tokens from headers)
 axiosInstance.interceptors.request.use(
   (config) => config,
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Response interceptor
@@ -42,39 +24,21 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Skip refresh logic for the refresh endpoint itself
-    if (originalRequest.url?.includes("/auth/refresh")) {
-      return Promise.reject(error);
-    }
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      // if (isRefreshing) {
-      //   // If already refreshing, queue this request
-      //   return new Promise((resolve, reject) => {
-      //     failedQueue.push({ resolve, reject });
-      //   })
-      //     .then(() => axiosInstance(originalRequest))
-      //     .catch((err) => Promise.reject(err));
-      // }
-
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/auth/refresh")
+    ) {
       originalRequest._retry = true;
-      // isRefreshing = true;
 
       try {
-        // Use separate axios instance for refresh to avoid interceptor loop
-        await refreshAxios.post("/auth/refresh");
-        // processQueue(null);
+        await refreshAxios.post("/auth/refresh"); // httpOnly cookie sent automatically
         return axiosInstance(originalRequest);
-      } catch (refreshError) {
-        // processQueue(refreshError);
-        // Optionally redirect to login or clear auth state here
-        console.error("Token refresh failed:", refreshError);
-        return Promise.reject(refreshError);
-      } // finally {
-      //   isRefreshing = false;
-      // }
+      } catch {
+        // Guest or refresh token expired → fail silently
+        return Promise.reject(error);
+      }
     }
-
     return Promise.reject(error);
-  }
+  },
 );
