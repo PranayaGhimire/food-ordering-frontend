@@ -12,13 +12,13 @@ const RecommendedFoods = () => {
               {foodItems.map((f) => (
                 <Card
                   key={f.name}
-                  className="w-full max-w-md shadow-md border-t-4 border-t-cyan-500 hover:-translate-y-5 transition-all duration-400"
+                  className="dark:bg-gray-700 w-full max-w-md shadow-md border-t-4 border-t-cyan-500 hover:-translate-y-5 transition-all duration-400"
                 >
                   <CardHeader>
                     <CardTitle>{f.name}</CardTitle>
                     <CardDescription>Rs. {f.price}</CardDescription>
                     <CardAction>
-                      <Button variant={`primary`} asChild>
+                      <Button variant={`primary`} asChild className="text-white">
                           <Link href={`/foods`}><UtensilsCrossed/>Order</Link>
                       </Button>
                     </CardAction>

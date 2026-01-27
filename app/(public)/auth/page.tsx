@@ -22,7 +22,7 @@ const Auth = () => {
           <TabsTrigger value="Log In">Log In</TabsTrigger>
         </TabsList>
         <TabsContent value="Sign Up" className="mt-2">
-          <Card className="shadow-xl border-t-4 border-t-cyan-500">
+          <Card className="dark:bg-gray-700 shadow-xl border-t-4 border-t-cyan-500">
             <CardHeader>
               <CardTitle>Sign Up</CardTitle>
               <CardDescription>

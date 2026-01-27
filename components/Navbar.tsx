@@ -34,10 +34,12 @@ import { LogIn, LogOut, Moon, Sun } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "@/redux/mode/modeSlice";
 import { RootState } from "@/redux/store";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
-  const isDarkMode = useSelector((state: RootState) => state.mode.value);
-  const dispatch = useDispatch();
+  const {theme,setTheme} = useTheme();
+  // const isDarkMode = useSelector((state: RootState) => state.mode.value);
+  // const dispatch = useDispatch();
   const path = usePathname();
   const { data: profile } = useGetProfile();
   console.log(profile);
@@ -56,11 +58,11 @@ const Navbar = () => {
           <p>EMAIL: rest@themomohouse.com</p>
           <p>PHONE: 9840505684; Pranaya Ghimire, Manager</p>
         </div>
-        <Button className="group w-28 h-full rounded-none bg-stone-800 hover:bg-stone-900 cursor-pointer">
+        <Button className="text-white group w-28 h-full rounded-none bg-stone-800 hover:bg-stone-900 cursor-pointer">
           <Link href={`/foods`}>Order Now</Link> <FaLongArrowAltRight className="group-hover:translate-x-2 transition-transform duration-400" />
         </Button>
       </div>
-      <div className="flex justify-between items-center h-28 px-5 md:px-20 bg-white">
+      <div className={`flex justify-between items-center h-28 px-5 md:px-20 bg-white dark:bg-gray-700`}>
         <Image
           loading="eager"
           src={momoHouse}
@@ -137,14 +139,14 @@ const Navbar = () => {
             </PopoverContent>
           </Popover>
         ) : (
-          <Button variant={`primary`}>
+          <Button variant={`primary`} className="text-white">
             <Link href={`/auth`} className="flex gap-2 items-center">
               Log In
               <LogIn />
             </Link>
           </Button>
         )}
-        <Button
+        {/* <Button
           variant={`primary`}
           onClick={() => dispatch(toggleMode())}
           className="hidden md:block"
@@ -158,6 +160,20 @@ const Navbar = () => {
             <div className="flex gap-3 items-center">
               <Moon />
               Dark Mode
+            </div>
+          )}
+        </Button> */}
+        <Button className="text-white" variant="primary" onClick={() => setTheme(theme === 'dark' ? "light" : 'dark')}>
+            {theme === 'dark' ? (
+            <div className="flex  gap-3 items-center">
+              Light Mode
+                <Sun />
+            </div>
+          ) : (
+            <div className="flex gap-3 items-center">
+              
+              Dark Mode
+              <Moon />
             </div>
           )}
         </Button>

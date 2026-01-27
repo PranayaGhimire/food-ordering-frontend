@@ -152,14 +152,14 @@ const AllFoods = () => {
             image: string;
             isAvailable: boolean;
           }) => (
-            <Card key={food._id} className="shadow-md hover:-translate-y-3 transition-all duration-400 ease-in-out border-t-4 border-t-cyan-500">
+            <Card key={food._id} className="dark:bg-gray-700 shadow-md hover:-translate-y-3 transition-all duration-400 ease-in-out border-t-4 border-t-cyan-500">
               <CardHeader>
                 <CardTitle>{food.name}</CardTitle>
                 <CardDescription className="text-[18px]">Rs. {food.price} only</CardDescription>
                 <CardAction className="">
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant={`primary`}>
+                      <Button variant={`primary`} className="text-white">
                         <UtensilsCrossed />
                         Order
                       </Button>
@@ -223,7 +223,7 @@ const AllFoods = () => {
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />
       ) : (
-        <Card className="shadow-md border-t-4 border-t-cyan-500">
+        <Card className="dark:bg-gray-700 shadow-md border-t-4 border-t-cyan-500">
           <Table>
             <TableCaption>A list of foods.</TableCaption>
             <TableHeader>
@@ -257,7 +257,7 @@ const AllFoods = () => {
                     <TableCell className="text-center space-x-3">
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button className="bg-gray-500 border-2 hover:border-gray-500 hover:bg-white hover:text-gray-500 transition-all duration-400 cursor-pointer">
+                          <Button className="text-white bg-gray-500 border-2 hover:border-gray-500 hover:bg-white hover:text-gray-500 transition-all duration-400 cursor-pointer">
                             <Eye />
                             View
                           </Button>
@@ -279,7 +279,7 @@ const AllFoods = () => {
                       </Dialog>{" "}
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant={`primary`}>
+                          <Button variant={`primary`} className="text-white">
                             <UtensilsCrossed />
                             Order
                           </Button>

@@ -52,7 +52,7 @@ const ContactUs = () => {
             <span className="font-semibold">Phone: </span>+977-9840505684
           </p>
         </div>
-        <Card className="md:w-1/2 border-t-4 border-t-cyan-500 shadow-lg">
+        <Card className="dark:bg-gray-700 md:w-1/2 border-t-4 border-t-cyan-500 shadow-lg">
           <CardContent className="space-y-3">
             <p className="text-[18px] font-semibold">Send Us A Message</p>
             <SendMessage/>
@@ -73,7 +73,7 @@ const ContactUs = () => {
         <p className="text-[20px] font-semibold">
           Frequently Asked Questions (FAQs)
         </p>
-        <Card className="border-t-4 border-t-cyan-500 shadow-lg">
+        <Card className="dark:bg-gray-700 border-t-4 border-t-cyan-500 shadow-lg">
           <CardContent>
             <Accordion
               type="single"

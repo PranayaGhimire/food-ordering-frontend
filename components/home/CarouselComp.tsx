@@ -31,7 +31,7 @@ const CarouselComp = () => {
                   <div className="absolute text-white text-2xl font-bold flex flex-col gap-2 items-center">
                         <p className="text-center">The Momo House</p>
                         <p className="text-center">Where you can order food from the comfort of your home</p>
-                       <Button variant="primary" >
+                       <Button variant="primary" className="text-white" >
                         <Link href={`/foods`}>
                             Order Now
                         </Link>

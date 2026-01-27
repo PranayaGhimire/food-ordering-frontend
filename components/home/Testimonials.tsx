@@ -19,7 +19,7 @@ const Testimonials = () => {
         {testimonials.map((t) => (
           <Card
             key={t.name}
-            className="w-full max-w-md h-80 flex flex-col items-center justify-evenly  shadow-md border-t-4 border-t-cyan-500 hover:-translate-y-5 transition-all duration-400"
+            className="dark:bg-gray-700 w-full max-w-md h-80 flex flex-col items-center justify-evenly  shadow-md border-t-4 border-t-cyan-500 hover:-translate-y-5 transition-all duration-400"
           >
             <CardHeader className="w-full">
               <CardTitle>{t.name}</CardTitle>

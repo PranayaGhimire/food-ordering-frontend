@@ -30,7 +30,7 @@ const AddSubscriber = () => {
         placeholder="Your email"
         className="bg-gray-700 border-0 placeholder:text-gray-200"
       />
-      <Button disabled={isPending} className="bg-cyan-500 hover:bg-cyan-700 cursor-pointer">
+      <Button disabled={isPending} variant="primary" className=" text-white">
         {isPending ? <RotateLoader color="white" size={10}/> :  'Subscribe'}
       </Button>
     </form>
