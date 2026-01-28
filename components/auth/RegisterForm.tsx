@@ -130,7 +130,7 @@ const RegisterForm = () => {
             onClick={() => setShowPassword(!showPassword)}
             type="button"
             variant={`primary`}
-            className="absolute top-9 right-2 h-6 w-6 "
+            className="text-white absolute top-9 right-2 h-6 w-6 "
           >
             {showPassword ? <EyeOff /> : <Eye />}
           </Button>
@@ -156,7 +156,7 @@ const RegisterForm = () => {
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             type="button"
             variant={`primary`}
-            className="absolute top-9 right-2 h-6 w-6 "
+            className="text-white absolute top-9 right-2 h-6 w-6 "
           >
             {showPassword ? <EyeOff /> : <Eye />}
           </Button>
@@ -185,6 +185,7 @@ const RegisterForm = () => {
           )}
         </div>
         <Button
+          className="text-white"
           variant={`primary`}
           disabled={isPending}
         >
@@ -197,7 +198,7 @@ const RegisterForm = () => {
         <hr className="w-full border border-cyan-500" />
       </div>
       <Button
-        className="w-full mt-3 bg-orange-500 hover:bg-orange-600 cursor-pointer"
+        className="text-white w-full mt-3 bg-orange-500 hover:bg-orange-600 cursor-pointer"
         onClick={() =>
           (window.location.href = `${process.env.NEXT_PUBLIC_URL}/auth/google`)
         }

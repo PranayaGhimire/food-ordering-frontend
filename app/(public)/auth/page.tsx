@@ -35,7 +35,7 @@ const Auth = () => {
           </Card>
         </TabsContent>
         <TabsContent value="Log In" className="mt-2">
-          <Card className="shadow-xl border-t-4 border-t-cyan-500">
+          <Card className="dark:bg-gray-700 shadow-xl border-t-4 border-t-cyan-500">
             <CardHeader>
               <CardTitle>Log In</CardTitle>
               <CardDescription>

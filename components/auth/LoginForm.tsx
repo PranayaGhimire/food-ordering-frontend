@@ -72,7 +72,7 @@ const LoginForm = () => {
             onClick={() => setShowPassword(!showPassword)}
             type="button"
             variant={`primary`}
-            className="absolute top-1/2 transform -translate-y-1/2 right-2 h-6 w-6 "
+            className="text-white absolute top-1/2 transform -translate-y-1/2 right-2 h-6 w-6 "
           >
             {showPassword ? <EyeOff /> : <Eye />}
           </Button>
@@ -96,7 +96,7 @@ const LoginForm = () => {
       </div>
       <Button
         disabled={isPending}
-        className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+        className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer text-white"
       >
         {isPending ? <RotateLoader size={8} color="white" /> : "Submit"}
       </Button>

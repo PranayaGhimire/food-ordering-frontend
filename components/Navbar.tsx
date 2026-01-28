@@ -31,19 +31,20 @@ import { MdAccountCircle } from "react-icons/md";
 import { useLogout } from "@/utils/apis/authApi";
 import { useGetProfile } from "@/utils/apis/userApi";
 import { LogIn, LogOut, Moon, Sun } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleMode } from "@/redux/mode/modeSlice";
-import { RootState } from "@/redux/store";
 import { useTheme } from "next-themes";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const Navbar = () => {
-  const {theme,setTheme} = useTheme();
-  // const isDarkMode = useSelector((state: RootState) => state.mode.value);
-  // const dispatch = useDispatch();
+  const { setTheme } = useTheme();
   const path = usePathname();
   const { data: profile } = useGetProfile();
   console.log(profile);
-  
+
   const first = profile?.data?.fullName.split(" ")[0];
   const shortFirst = profile?.data?.fullName.slice(0, 1).toUpperCase();
   const shortLast = profile?.data?.fullName
@@ -59,10 +60,13 @@ const Navbar = () => {
           <p>PHONE: 9840505684; Pranaya Ghimire, Manager</p>
         </div>
         <Button className="text-white group w-28 h-full rounded-none bg-stone-800 hover:bg-stone-900 cursor-pointer">
-          <Link href={`/foods`}>Order Now</Link> <FaLongArrowAltRight className="group-hover:translate-x-2 transition-transform duration-400" />
+          <Link href={`/foods`}>Order Now</Link>{" "}
+          <FaLongArrowAltRight className="group-hover:translate-x-2 transition-transform duration-400" />
         </Button>
       </div>
-      <div className={`flex justify-between items-center h-28 px-5 md:px-20 bg-white dark:bg-gray-700`}>
+      <div
+        className={`flex justify-between items-center h-28 px-5 md:px-20 bg-white dark:bg-gray-700`}
+      >
         <Image
           loading="eager"
           src={momoHouse}
@@ -146,45 +150,35 @@ const Navbar = () => {
             </Link>
           </Button>
         )}
-        {/* <Button
-          variant={`primary`}
-          onClick={() => dispatch(toggleMode())}
-          className="hidden md:block"
-        >
-          {isDarkMode ? (
-            <div className="flex  gap-3 items-center">
-              Light Mode
-                <Sun />
-            </div>
-          ) : (
-            <div className="flex gap-3 items-center">
-              <Moon />
-              Dark Mode
-            </div>
-          )}
-        </Button> */}
-        <Button className="text-white" variant="primary" onClick={() => setTheme(theme === 'dark' ? "light" : 'dark')}>
-            {theme === 'dark' ? (
-            <div className="flex  gap-3 items-center">
-              Light Mode
-                <Sun />
-            </div>
-          ) : (
-            <div className="flex gap-3 items-center">
-              
-              Dark Mode
-              <Moon />
-            </div>
-          )}
-        </Button>
+        {/* Toggle theme */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="primary" className="text-white" >
+              <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => setTheme("light")}>
+              Light
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
+              Dark
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("system")}>
+              System
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild suppressHydrationWarning>
-            <Button className="bg-cyan-500 md:hidden">
+            <Button className="bg-cyan-500 md:hidden text-white">
               <GiHamburgerMenu />
             </Button>
           </SheetTrigger>
-          <SheetContent className="[&>button]:text-white">
+          <SheetContent className="[&>button]:text-white dark:bg-gray-800">
             <SheetHeader className="bg-cyan-600">
               <SheetTitle className="text-white">The Momo House</SheetTitle>
               <SheetDescription className="text-white">
