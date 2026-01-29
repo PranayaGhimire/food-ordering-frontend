@@ -43,7 +43,7 @@ const AllOrders = () => {
     });
   };
   return (
-    <Card className="shadow-md border-t-4 border-t-cyan-500">
+    <Card className="dark:bg-stone-700 shadow-md border-t-4 border-t-cyan-500">
       <Table>
         <TableCaption>A list of orders</TableCaption>
         <TableHeader>
@@ -91,9 +91,9 @@ const AllOrders = () => {
                 <TableCell className="flex gap-4 justify-center">
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant={`primary`}>Accept<ArrowUp/></Button>
+                      <Button variant={`primary`} className="text-white">Accept<ArrowUp/></Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="dark:bg-stone-800">
                       <AlertDialogHeader>
                         <AlertDialogTitle>
                           Are you sure you want to accept this order ?
@@ -108,7 +108,7 @@ const AllOrders = () => {
                           Cancel
                         </AlertDialogCancel>
                         <AlertDialogAction
-                          className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+                          className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer text-white"
                           onClick={() =>
                             handleUpdateOrder(order._id, "ACCEPTED")
                           }
@@ -120,11 +120,11 @@ const AllOrders = () => {
                   </AlertDialog>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button className="bg-red-500 hover:border-2 hover:border-red-500 hover:text-red-500 hover:bg-white transition-all duration-400 cursor-pointer">
+                      <Button className="text-white bg-red-500 hover:border-2 hover:border-red-500 hover:text-red-500 hover:bg-white transition-all duration-400 cursor-pointer">
                         Reject<ArrowDown/>
                       </Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="dark:bg-stone-800">
                       <AlertDialogHeader>
                         <AlertDialogTitle>
                           Are you sure you want to reject this order ?
@@ -139,7 +139,7 @@ const AllOrders = () => {
                           Cancel
                         </AlertDialogCancel>
                         <AlertDialogAction
-                          className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+                          className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer text-white"
                           onClick={() =>
                             handleUpdateOrder(order._id, "REJECTED")
                           }

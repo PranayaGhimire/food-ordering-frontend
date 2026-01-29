@@ -62,7 +62,7 @@ const DashboardCards = () => {
         <div className="flex flex-col md:flex-row gap-5">
           {dashboardCards?.map((dc) => (
             <Link key={dc.title} href={dc.route}>
-              <Card className="w-40 shadow-md border-t-4 border-t-cyan-500 hover:-translate-y-2 transition-all ease-in-out duration-400">
+              <Card className="dark:bg-stone-700 w-40 shadow-md border-t-4 border-t-cyan-500 hover:-translate-y-2 transition-all ease-in-out duration-400">
                 <CardContent className="flex gap-5 justify-center items-center">
                   <dc.icon className="text-cyan-500" />
                   <div className="">

@@ -69,7 +69,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="shadow-md">
      
-      <SidebarContent>
+      <SidebarContent className="dark:bg-stone-700">
         
         <SidebarGroup>
           <div className="hidden md:block">

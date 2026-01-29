@@ -59,7 +59,7 @@ const MyProfile = () => {
     }
   },[profile,reset])
   return (
-    <Card className="border-t-4 border-t-cyan-500 shadow-md">
+    <Card className="dark:bg-stone-700 border-t-4 border-t-cyan-500 shadow-md">
       <CardContent className="space-y-5">
         <div className="flex flex-col items-center gap-3">
           <div
@@ -78,7 +78,7 @@ const MyProfile = () => {
               />
             )}
           </div>
-          <p className="text-gray-600 text-center">
+          <p className="text-gray-600 dark:text-gray-300 text-center">
             Select on the image to upload your profile picture
           </p>
         </div>
@@ -153,7 +153,7 @@ const MyProfile = () => {
             </div>
             <Button
               disabled={isUpdateProfilePending}
-              className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+              className="text-white" variant='primary'
             >
               {isUpdateProfilePending ? <Spinner/> : 'Update Profile'}
             </Button>

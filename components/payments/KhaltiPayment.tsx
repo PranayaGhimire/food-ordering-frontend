@@ -54,6 +54,7 @@ const KhaltiPayment = () => {
         onClick={handleVerifyKhalti}
         variant={`primary`}
         disabled={isPending}
+        className="text-white"
       >
         {isPending ? (
           <ClipLoader size={20} color="white" />
@@ -82,11 +83,11 @@ const KhaltiPayment = () => {
             )}
           </div>
           <Textarea {...register('comment')} placeholder="Write a comment" className="md:w-1/2"/>
-          <Button variant={`primary`}>Submit</Button>
+          <Button variant={`primary`} className="text-white">Submit</Button>
         </form>
       ) : (
         <div>
-          <Button variant={`primary`} onClick={() => window.location.reload()}>
+          <Button variant={`primary`} className="text-white" onClick={() => window.location.reload()}>
             <RefreshCcw />
             Refresh
           </Button>

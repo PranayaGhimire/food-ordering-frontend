@@ -28,7 +28,7 @@ const ResetPasswordForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         <Label>New Password</Label>
         <Input {...register('password')} type="password" placeholder="Enter your new password"/>
-        <Button disabled={isPending} variant={`primary`}>Submit</Button>
+        <Button disabled={isPending} variant={`primary`} className="text-white">Submit</Button>
     </form>
   )
 }

@@ -54,20 +54,20 @@ const UserOrder = () => {
       <h3>Pay Now Button will be displayed on your screen</h3>
       <h4>Refresh the page if it doesn&apos;t appear</h4>
       {order?.data?.status === "ACCEPTED" ? (
-        <Button variant={`primary`} onClick={handleInitiateKhalti}>
+        <Button variant={`primary`} onClick={handleInitiateKhalti} className="text-white">
           <Wallet />
           Pay Now
         </Button>
       ) : order?.data?.status === "REJECTED" ? (
         <Button
           onClick={handleCreateOrder}
-          className="bg-red-500 hover:border-2 hover:border-red-500 hover:bg-white hover:text-red-500"
+          className="bg-red-500 hover:border-2 hover:border-red-500 hover:bg-white hover:text-red-500 text-white"
         >
           <UtensilsCrossed />
           Order Again
         </Button>
       ) : (
-        <Button variant={`primary`} onClick={() => window.location.reload()}>
+        <Button variant={`primary`} onClick={() => window.location.reload()} className="text-white">
           <RefreshCcw />
           Refresh
         </Button>

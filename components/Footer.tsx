@@ -7,7 +7,7 @@ import AddSubscriber from "./AddSubscriber";
 
 const Footer = () => {
   return (
-    <footer className="  bg-zinc-800 text-white">
+    <footer className="bg-zinc-800 border-t  text-white">
       <div className="flex flex-col xl:flex-row gap-15 xl:justify-between px-5 xl:px-20 py-10">
         {/* Quick Links */}
         <div className="grid gap-5">

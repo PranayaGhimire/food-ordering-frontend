@@ -7,7 +7,7 @@ import { useGetMessages } from "@/utils/apis/messageApi"
 const AllMessages = () => {
   const {data:messages} = useGetMessages();
   return (
-    <Card className="border-t-4 border-t-cyan-500 shadow-md">
+    <Card className="dark:bg-stone-700 border-t-4 border-t-cyan-500 shadow-md">
         <Table>
             <TableCaption>A list of messages</TableCaption>
             <TableHeader>

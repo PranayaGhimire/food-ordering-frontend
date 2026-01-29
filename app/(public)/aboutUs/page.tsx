@@ -39,7 +39,7 @@ const AboutUs = () => {
             </p>
           </div>
         </div>
-        <Card className="dark:bg-gray-700 pl-10 border-t-4 border-t-cyan-500">
+        <Card className="dark:bg-stone-700 pl-10 border-t-4 border-t-cyan-500">
           <p className="font-semibold text-[18px]">Why Choose Us?</p>
           <ul className="list-disc pl-5">
             <li>Qualitative & Tasty Foods</li>

@@ -65,6 +65,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../ui/pagination";
+import { categoryFilters, sortFilters } from "@/constants/filters";
 
 const AllFoods = () => {
   // States
@@ -123,23 +124,18 @@ const AllFoods = () => {
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
-            <NativeSelectOption>All</NativeSelectOption>
-            <NativeSelectOption>Momo</NativeSelectOption>
-            <NativeSelectOption>Snacks</NativeSelectOption>
-            <NativeSelectOption>Tea</NativeSelectOption>
-            <NativeSelectOption>Coffee</NativeSelectOption>
-            <NativeSelectOption>Soft Drinks</NativeSelectOption>
-            <NativeSelectOption>Hard Drinks</NativeSelectOption>
+            {categoryFilters?.map((cf) =>
+                <NativeSelectOption key={cf} className="dark:bg-stone-700">{cf}</NativeSelectOption>
+            )}
           </NativeSelect>
           <NativeSelect
             className="bg-white"
             value={priceFilter}
             onChange={(e) => setPriceFilter(e.target.value)}
           >
-            {/* <NativeSelectOption>All</NativeSelectOption> */}
-            <NativeSelectOption>Default</NativeSelectOption>
-            <NativeSelectOption>Highest</NativeSelectOption>
-            <NativeSelectOption>Lowest</NativeSelectOption>
+            {sortFilters?.map(sf => 
+                <NativeSelectOption key={sf} className="dark:bg-stone-700">{sf}</NativeSelectOption>
+            )}
           </NativeSelect>
         </div>
       </div>
@@ -152,7 +148,7 @@ const AllFoods = () => {
             image: string;
             isAvailable: boolean;
           }) => (
-            <Card key={food._id} className="dark:bg-gray-700 shadow-md hover:-translate-y-3 transition-all duration-400 ease-in-out border-t-4 border-t-cyan-500">
+            <Card key={food._id} className="dark:bg-stone-700 shadow-md hover:-translate-y-3 transition-all duration-400 ease-in-out border-t-4 border-t-cyan-500">
               <CardHeader>
                 <CardTitle>{food.name}</CardTitle>
                 <CardDescription className="text-[18px]">Rs. {food.price} only</CardDescription>
@@ -164,7 +160,7 @@ const AllFoods = () => {
                         Order
                       </Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="dark:bg-stone-800">
                       <AlertDialogHeader>
                         <AlertDialogTitle>
                           Are you sure you want to order {food.name} ?
@@ -182,7 +178,7 @@ const AllFoods = () => {
                           onClick={() =>
                             onOrder(food._id, food.isAvailable, food.name)
                           }
-                          className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+                          className="text-white bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
                         >
                           Continue
                         </AlertDialogAction>
@@ -223,7 +219,7 @@ const AllFoods = () => {
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />
       ) : (
-        <Card className="dark:bg-gray-700 shadow-md border-t-4 border-t-cyan-500">
+        <Card className="dark:bg-stone-700 shadow-md border-t-4 border-t-cyan-500">
           <Table>
             <TableCaption>A list of foods.</TableCaption>
             <TableHeader>
@@ -284,7 +280,7 @@ const AllFoods = () => {
                             Order
                           </Button>
                         </AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className="dark:bg-stone-800">
                           <AlertDialogHeader>
                             <AlertDialogTitle>
                               Are you sure you want to order {f.name} ?
@@ -302,7 +298,7 @@ const AllFoods = () => {
                               onClick={() =>
                                 onOrder(f._id, f.isAvailable, f.name)
                               }
-                              className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+                              className="text-white bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
                             >
                               Continue
                             </AlertDialogAction>

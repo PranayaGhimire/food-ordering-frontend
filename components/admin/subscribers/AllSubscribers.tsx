@@ -8,7 +8,7 @@ const AllSubscribers = () => {
   const {data:subscribers} = useGetSubscribers();
   return (
     <>
-        <Card>
+        <Card className="dark:bg-stone-700 shadow-md border-t-4 border-t-cyan-500">
             <Table>
                 <TableCaption>A list of subscribers</TableCaption>
                 <TableHeader>

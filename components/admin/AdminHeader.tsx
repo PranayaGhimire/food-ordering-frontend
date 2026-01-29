@@ -25,7 +25,7 @@ const AdminHeader = () => {
     console.log(searchValue);
   };
   return (
-    <header className="w-full flex gap-5 md:justify-between items-center bg-white p-3 shadow-md">
+    <header className="w-full flex gap-5 md:justify-between items-center bg-white dark:bg-stone-700 p-3 shadow-md">
       <div className="md:hidden">
         <CustomTrigger />
       </div>
@@ -38,12 +38,12 @@ const AdminHeader = () => {
       />
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button className="bg-red-500 hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500 hover:transition-all hover:duration-400 cursor-pointer">
+          <Button className="text-white bg-red-500 hover:bg-white hover:border-2 hover:border-red-500 hover:text-red-500 hover:transition-all hover:duration-400 cursor-pointer">
             Log Out
             <LogOut />
           </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className="dark:bg-stone-800">
           <AlertDialogHeader>
             <AlertDialogTitle>
               Are you sure you want to Log Out ?
@@ -59,7 +59,7 @@ const AdminHeader = () => {
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => mutate()}
-              className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+              className="text-white bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
             >
               Continue
             </AlertDialogAction>

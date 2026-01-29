@@ -23,7 +23,7 @@ const AllRatings = () => {
   }
   return (
     <>
-        <Card className="border-t-4 border-t-cyan-500 shadow-md">
+        <Card className="dark:bg-stone-700 border-t-4 border-t-cyan-500 shadow-md">
             <Table>
                 <TableCaption>A list of ratings</TableCaption>
                 <TableHeader>
@@ -46,7 +46,7 @@ const AllRatings = () => {
                             <TableCell className="text-center">{rating?.comment}</TableCell>
                             <TableCell className="text-center">
                                 <Button onClick={() => handleDeleteRating(rating._id)} 
-                                className="bg-red-500 hover:bg-white hover:text-red-500 hover:border-2 hover:border-red-500 cursor-pointer transition-all duration-400"><Trash/>Delete</Button>
+                                className="text-white bg-red-500 hover:bg-white hover:text-red-500 hover:border-2 hover:border-red-500 cursor-pointer transition-all duration-400"><Trash/>Delete</Button>
                             </TableCell>
                         </TableRow>
                     )}     

@@ -56,6 +56,7 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
+import { categoryFilters, sortFilters } from "@/constants/filters";
 
 const AllFoodsAdmin = () => {
   // States
@@ -100,7 +101,7 @@ const AllFoodsAdmin = () => {
   };
   return (
     <div className="space-y-4">
-      <Button variant={`primary`}>
+      <Button variant={`primary`} className="text-white">
         <Link href={`/admin/foods/add`} className="flex gap-2 items-center">
           <CirclePlus />
           Add Food
@@ -126,13 +127,9 @@ const AllFoodsAdmin = () => {
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
-            <NativeSelectOption>All</NativeSelectOption>
-            <NativeSelectOption>Momo</NativeSelectOption>
-            <NativeSelectOption>Snacks</NativeSelectOption>
-            <NativeSelectOption>Tea</NativeSelectOption>
-            <NativeSelectOption>Coffee</NativeSelectOption>
-            <NativeSelectOption>Soft Drinks</NativeSelectOption>
-            <NativeSelectOption>Hard Drinks</NativeSelectOption>
+            {categoryFilters.map(cf => 
+              <NativeSelectOption key={cf} className="dark:bg-stone-700">{cf}</NativeSelectOption>
+            )}
           </NativeSelect>
           <NativeSelect
             className="bg-white"
@@ -140,16 +137,16 @@ const AllFoodsAdmin = () => {
             onChange={(e) => setPriceFilter(e.target.value)}
           >
             {/* <NativeSelectOption>All</NativeSelectOption> */}
-            <NativeSelectOption>Default</NativeSelectOption>
-            <NativeSelectOption>Highest</NativeSelectOption>
-            <NativeSelectOption>Lowest</NativeSelectOption>
+            {sortFilters.map(sf => 
+              <NativeSelectOption key={sf} className="dark:bg-stone-700">{sf}</NativeSelectOption>
+            )}
           </NativeSelect>
         </div>
       </div>
       {isLoading ? (
         <Skeleton className="w-full h-60 bg-gray-400" />
       ) : (
-        <Card className="shadow-md border-t-4 border-t-cyan-500">
+        <Card className="dark:bg-stone-700 shadow-md border-t-4 border-t-cyan-500">
           <Table>
             <TableCaption>A list of foods.</TableCaption>
             <TableHeader>
@@ -191,12 +188,12 @@ const AllFoodsAdmin = () => {
                     <TableCell className="text-center space-x-3">
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button className="bg-gray-500 border-2 hover:border-gray-500 hover:bg-white hover:text-gray-500 transition-all duration-400 cursor-pointer">
+                          <Button className="text-white bg-gray-500 border-2 hover:border-gray-500 hover:bg-white hover:text-gray-500 transition-all duration-400 cursor-pointer">
                             <Eye />
                             View
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="w-72">
+                        <DialogContent className="w-72 dark:bg-stone-800">
                           <DialogHeader>
                             <DialogTitle>{f.name}</DialogTitle>
                             <DialogDescription>Rs. {f.price}</DialogDescription>
@@ -212,20 +209,20 @@ const AllFoodsAdmin = () => {
                         </DialogContent>
                       </Dialog>{" "}
                       <Link href={`/admin/foods/edit/${f._id}`}>
-                        <Button variant={"primary"}>
+                        <Button variant={"primary"} className="text-white">
                           <Edit />
                           Edit
                         </Button>
                       </Link>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button className="bg-red-500 border-2 hover:border-red-500 hover:bg-white hover:text-red-500 transition-all duration-400 cursor-pointer">
+                          <Button className="text-white bg-red-500 border-2 hover:border-red-500 hover:bg-white hover:text-red-500 transition-all duration-400 cursor-pointer">
                             {" "}
                             <Trash />
                             Delete
                           </Button>
                         </AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className="dark:bg-stone-800">
                           <AlertDialogHeader>
                             <AlertDialogTitle>
                               Are you absolutely sure ?
@@ -242,7 +239,7 @@ const AllFoodsAdmin = () => {
                             </AlertDialogCancel>
                             <AlertDialogAction
                               onClick={() => handleDeleteFood(f._id)}
-                              className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+                              className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer text-white"
                             >
                               Continue
                             </AlertDialogAction>

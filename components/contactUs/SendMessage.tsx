@@ -28,7 +28,7 @@ const SendMessage = () => {
       <Input placeholder="Your Name" {...register("name")} />
       <Input placeholder="Your Email" {...register("email")} />
       <Textarea placeholder="Your Message" {...register("message")} />
-      <Button disabled={isPending} variant={`primary`} className="w-full p-5">
+      <Button disabled={isPending} variant={`primary`} className="w-full p-5 text-white">
         <Send /> Send Message
       </Button>
     </form>

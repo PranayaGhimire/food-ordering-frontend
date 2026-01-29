@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
+import { categoryFilters } from "@/constants/filters";
 import { useAddFood } from "@/utils/apis/foodApi";
 import { IFoodForm } from "@/utils/interfaces/foodForm";
 import { useRouter } from "next/navigation";
@@ -50,12 +51,9 @@ const AddFoodForm = () => {
         <div className="md:w-1/2 space-y-2">
           <Label>Category</Label>
           <NativeSelect {...register('category')}>
-              <NativeSelectOption>Momo</NativeSelectOption>
-              <NativeSelectOption>Snacks</NativeSelectOption>
-              <NativeSelectOption>Tea</NativeSelectOption>
-              <NativeSelectOption>Coffee</NativeSelectOption>
-              <NativeSelectOption>Soft Drinks</NativeSelectOption>
-              <NativeSelectOption>Hard Drinks</NativeSelectOption>
+              {categoryFilters.filter(cf => cf!=="All").map(cf =>
+                  <NativeSelectOption key={cf} className="dark:bg-stone-700">{cf}</NativeSelectOption>
+              )}
           </NativeSelect>
         </div>
         {/* Image */}
@@ -65,7 +63,7 @@ const AddFoodForm = () => {
         </div>
       </div>
 
-      <Button disabled={isPending} variant={`primary`}>
+      <Button disabled={isPending} variant={`primary`} className="text-white">
         Add New Food
       </Button>
     </form>

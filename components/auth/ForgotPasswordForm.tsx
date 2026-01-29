@@ -19,7 +19,7 @@ const ForgotPasswordForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
       <Label>Email</Label>
       <Input type="email" placeholder="Enter your registered email" {...register('email')} />
-      <Button variant={`primary`}>Submit</Button>
+      <Button variant={`primary`} className="text-white">Submit</Button>
     </form>
   );
 };

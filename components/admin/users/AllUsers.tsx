@@ -42,7 +42,7 @@ const AllUsers = () => {
   };
   return (
     <>
-      <Card className="shadow-md border-t-4 border-t-cyan-500">
+      <Card className="dark:bg-stone-700 shadow-md border-t-4 border-t-cyan-500">
         <Table>
           <TableCaption>A list of users.</TableCaption>
           <TableHeader>
@@ -83,12 +83,12 @@ const AllUsers = () => {
                     <TableCell className="text-center">
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
+                          <Button className="text-white bg-red-500 hover:bg-red-600 cursor-pointer">
                             <Trash />
                             Delete
                           </Button>
                         </AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className="dark:bg-stone-800">
                           <AlertDialogHeader>
                             <AlertDialogTitle>
                               Are you sure you want to delete this account ?
@@ -103,7 +103,7 @@ const AllUsers = () => {
                               Cancel
                             </AlertDialogCancel>
                             <AlertDialogAction
-                              className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+                              className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer text-white"
                               onClick={() => handleDeleteUser(user._id)}
                             >
                               Continue

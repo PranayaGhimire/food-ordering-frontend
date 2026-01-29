@@ -65,7 +65,7 @@ const Navbar = () => {
         </Button>
       </div>
       <div
-        className={`flex justify-between items-center h-28 px-5 md:px-20 bg-white dark:bg-gray-700`}
+        className={`flex justify-between items-center h-28 px-5 md:px-20 bg-white dark:bg-stone-700`}
       >
         <Image
           loading="eager"
@@ -96,9 +96,9 @@ const Navbar = () => {
         {profile ? (
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant="primary">{`${shortFirst}${shortLast}`}</Button>
+              <Button variant="primary" className="text-white">{`${shortFirst}${shortLast}`}</Button>
             </PopoverTrigger>
-            <PopoverContent className="flex flex-col space-y-2">
+            <PopoverContent className="dark:bg-stone-700 flex flex-col space-y-2">
               <p className="flex items-center gap-2 border-b-2 pb-2 font-medium">
                 <MdAccountCircle className="text-cyan-500 text-2xl" />{" "}
                 {`My Account`}
@@ -112,12 +112,13 @@ const Navbar = () => {
               </Link>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button className="bg-red-500 border-2 hover:border-red-500 hover:bg-white hover:text-red-500 transition-all duration-400  cursor-pointer">
+                  <Button className="bg-red-500 border-2 hover:border-red-500 hover:bg-white 
+                  hover:text-red-500 transition-all duration-400  cursor-pointer text-white">
                     Log Out
                     <LogOut />
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent>
+                <AlertDialogContent className="dark:bg-stone-800">
                   <AlertDialogHeader>
                     <AlertDialogTitle>
                       Are you absolutely sure?
@@ -133,7 +134,7 @@ const Navbar = () => {
                     </AlertDialogCancel>
                     <AlertDialogAction
                       onClick={() => mutate()}
-                      className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
+                      className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white"
                     >
                       Continue
                     </AlertDialogAction>

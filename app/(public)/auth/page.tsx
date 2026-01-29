@@ -18,11 +18,11 @@ const Auth = () => {
     <div className="flex justify-center my-10">
       <Tabs defaultValue="Log In" className="w-[90%] md:w-100">
         <TabsList>
-          <TabsTrigger value="Sign Up">Sign Up</TabsTrigger>
-          <TabsTrigger value="Log In">Log In</TabsTrigger>
+          <TabsTrigger value="Sign Up" className="dark:bg-stone-700">Sign Up</TabsTrigger>
+          <TabsTrigger value="Log In" className="dark:bg-stone-700">Log In</TabsTrigger>
         </TabsList>
         <TabsContent value="Sign Up" className="mt-2">
-          <Card className="dark:bg-gray-700 shadow-xl border-t-4 border-t-cyan-500">
+          <Card className="dark:bg-stone-700 shadow-xl border-t-4 border-t-cyan-500">
             <CardHeader>
               <CardTitle>Sign Up</CardTitle>
               <CardDescription>
@@ -35,7 +35,7 @@ const Auth = () => {
           </Card>
         </TabsContent>
         <TabsContent value="Log In" className="mt-2">
-          <Card className="dark:bg-gray-700 shadow-xl border-t-4 border-t-cyan-500">
+          <Card className="dark:bg-stone-700 shadow-xl border-t-4 border-t-cyan-500">
             <CardHeader>
               <CardTitle>Log In</CardTitle>
               <CardDescription>
