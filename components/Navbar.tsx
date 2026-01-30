@@ -179,7 +179,7 @@ const Navbar = () => {
               <GiHamburgerMenu />
             </Button>
           </SheetTrigger>
-          <SheetContent className="[&>button]:text-white dark:bg-gray-800">
+          <SheetContent className="[&>button]:text-white dark:bg-stone-800">
             <SheetHeader className="bg-cyan-600">
               <SheetTitle className="text-white">The Momo House</SheetTitle>
               <SheetDescription className="text-white">
