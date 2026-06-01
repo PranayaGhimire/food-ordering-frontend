@@ -14,9 +14,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { Turnstile } from "nextjs-turnstile";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [captchaToken,setCaptchaToken] = useState("");
   const queryClient = useQueryClient();
   const router = useRouter();
   const { mutate, isPending } = useLogin();
@@ -26,7 +28,15 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<ILoginForm>();
   const onSubmit = (data: ILoginForm) => {
-    mutate(data, {
+    if(!captchaToken) {
+      toast.error("Please complete the captcha");
+      return;
+    }
+
+    mutate({
+      ...data,
+      captchaToken 
+    }, {
       onSuccess: (response) => {
         toast.success(response.message);
         queryClient.setQueryData(["user"], {
@@ -94,8 +104,15 @@ const LoginForm = () => {
           Forgot Password ?
         </Link>
       </div>
+      <Turnstile
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+        onSuccess={(token) => setCaptchaToken(token)}
+        onExpire={() => setCaptchaToken("")}
+        onError={() => setCaptchaToken("")}
+      />
       <Button
-        disabled={isPending}
+        disabled={isPending || !captchaToken}
+        variant="primary"
         className="bg-cyan-500 hover:bg-cyan-600 cursor-pointer text-white"
       >
         {isPending ? <RotateLoader size={8} color="white" /> : "Submit"}
